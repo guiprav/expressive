@@ -16,7 +16,7 @@
 
 	"scripts":
 	{
-		"start": "forever -w --watchIgnore=public/ ./bin/emblog-server.js"
+		"start": "forever -w ./bin/emblog-server.js"
 	},
 
 	"repository":
