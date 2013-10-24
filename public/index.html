@@ -15,15 +15,30 @@
 			<h1>
 				Embl⊘g
 			</h1>
+			{{#if user}}
+				<span class="welcome-message">
+					Welcome back, {{user.name}}!
+				</span>
+				<span class="actions">
+					<a href="#">
+						Let the world know
+					</a>
+					or
+					<a href="#">
+						get out.
+					</a>
+				</span>
+			{{else}}
 			<form>
-				<input class="form-control" type="text" placeholder="Login">
-				<input class="form-control" type="password" placeholder="Password">
-				<input class="btn btn-default" type="submit" value="Login">
+				{{input class="form-control" type="text" value=login placeholder="Login"}}
+				{{input class="form-control" type="password" value=password placeholder="Password"}}
+				<input class="btn btn-default" type="submit" value="Login" {{action "login"}}>
 			</form>
 			or
 			<a href="#">
 				create an account.
 			</a>
+			{{/if}}
 		</header>
 		{{outlet}}
 	</script>
