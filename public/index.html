@@ -8,37 +8,40 @@
 	<script type="text/javascript" src="/js/app.js"></script>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
 	<script type="text/x-handlebars">
-		<header>
-			<h1>
-				Embl⊘g
-			</h1>
-			{{#if user}}
-				<span class="welcome-message">
-					Welcome back, {{user.name}}!
-				</span>
-				<span class="actions">
-					<a href="#">
-						Let the world know
-					</a>
-					or
-					<a href="#" {{action "logout"}}>
-						get out.
-					</a>
-				</span>
-			{{else}}
-			<form>
-				{{input class="form-control" type="text" value=login placeholder="Login"}}
-				{{input class="form-control" type="password" value=password placeholder="Password"}}
-				<input class="btn btn-default" type="submit" value="Login" {{action "login"}}>
-			</form>
-			or
-			<a href="#">
-				create an account.
-			</a>
-			{{/if}}
+		<header class="emblog-header">
+			<div class="emblog-header-padder">
+				<h1>
+					Embl⊘g
+				</h1>
+				{{#if user}}
+					<span class="welcome-message">
+						Welcome back, {{user.name}}!
+					</span>
+					<span class="actions">
+						<a href="#">
+							Let the world know
+						</a>
+						or
+						<a href="#" {{action "logout"}}>
+							get out.
+						</a>
+					</span>
+				{{else}}
+				<form class="login-form">
+					{{input class="form-control" type="text" value=login placeholder="Login"}}
+					{{input class="form-control" type="password" value=password placeholder="Password"}}
+					<input class="btn btn-default" type="submit" value="Login" {{action "login"}}>
+				</form>
+				or
+				<a href="#">
+					create an account.
+				</a>
+				{{/if}}
+			</div>
 		</header>
 		{{outlet}}
 	</script>

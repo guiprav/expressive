@@ -1,0 +1,33 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+.emblog-header {
+	margin-bottom: 25px;
+	font-size: 24px;
+	font-family: Helvetica, sans-serif;
+	background-color: #FFCC2F;
+	color: #543729;
+}
+
+.emblog-header-padder {
+	width: 1024px;
+	height: 135px;
+	margin: 0 auto;
+	padding-top: 20px;
+	text-align: right;
+}
+
+.emblog-header-padder > h1 {
+	float: left;
+	margin-top: -18px;
+	font-size: 110px;
+	color: #EF5734;
+}
+
+.emblog-header-padder > .login-form input {
+	display: inline;
+	width: auto;
+}
+
