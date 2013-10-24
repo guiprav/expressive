@@ -32,8 +32,20 @@ html, body {
 }
 
 .posts-container > .alert,
-.posts-container > .blogpost {
+.posts-container > .blogpost,
+.compose-form {
 	width: 1024px;
 	margin: 0 auto;
 }
+
+.compose-form input,
+.compose-form textarea {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.compose-form textarea {
+	height: 300px;
+}
+
 

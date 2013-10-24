@@ -1,5 +1,9 @@
 App = Ember.Application.create();
 
+App.Router.map(function() {
+	this.resource('compose');
+});
+
 App.ApplicationController = Ember.Controller.extend({
 	user: null,
 

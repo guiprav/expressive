@@ -22,9 +22,9 @@
 						Welcome back, {{user.name}}!
 					</span>
 					<span class="actions">
-						<a href="#">
+						{{#link-to "compose"}}
 							Let the world know
-						</a>
+						{{/link-to}}
 						or
 						<a href="#" {{action "logout"}}>
 							get out.
@@ -70,6 +70,13 @@
 				</div>
 			{{/each}}
 		</div>
+	</script>
+	<script type="text/x-handlebars" id="compose">
+		<form class="compose-form">
+			<input class="form-control" type="text" placeholder="Post title">
+			<textarea class="form-control" placeholder="Write something endearing."></textarea>
+			<input class="btn btn-default" type="submit" value="Let those words be heard!">
+		</form>
 	</script>
 </body>
 
