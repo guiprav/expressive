@@ -39,6 +39,11 @@ App.ComposeController = Ember.Controller.extend({
 	needs: ['index', 'application'],
 
 	actions: {
+		willTransition: function () {
+			this.set('title', '');
+			this.set('body', '');
+		},
+
 		publish: function () {
 			var user = this.get('controllers.application.user');
 
