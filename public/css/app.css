@@ -31,7 +31,8 @@ html, body {
 	width: auto;
 }
 
-.posts-container > .alert {
+.posts-container > .alert,
+.posts-container > .blogpost {
 	width: 1024px;
 	margin: 0 auto;
 }

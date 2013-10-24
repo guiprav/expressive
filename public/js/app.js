@@ -16,3 +16,17 @@ App.ApplicationController = Ember.Controller.extend({
 	}
 });
 
+App.IndexController = Ember.Controller.extend({
+	posts: [
+		{
+			title: 'How to change the world for the better?',
+			body: 'Lorem ipsum philantropy...',
+			author: {
+				name: 'Guilherme Vieira',
+				email_uri: 'mailto:super.driver.512@gmail.com'
+			},
+			date: '01/01/1970'
+		}
+	]
+});
+

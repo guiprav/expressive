@@ -47,9 +47,28 @@
 	</script>
 	<script type="text/x-handlebars" id="index">
 		<div class="posts-container">
-			<div class="alert alert-info">
-				There are no posts at this time.
-			</div>
+			{{#each post in posts}}
+				<article class="blogpost">
+					<header>
+						<h1>
+							{{post.title}}
+						</h1>
+						Posted by
+						<a class="author" {{bindAttr href="post.author.email_uri"}}>
+							{{post.author.name}}
+						</a>
+						on
+						<span class="date">
+							{{post.date}}.
+						</span>
+					</header>
+					{{post.body}}
+				</article>
+			{{else}}
+				<div class="alert alert-info">
+					There are no posts at this time.
+				</div>
+			{{/each}}
 		</div>
 	</script>
 </body>
