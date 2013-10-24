@@ -73,9 +73,9 @@
 	</script>
 	<script type="text/x-handlebars" id="compose">
 		<form class="compose-form">
-			<input class="form-control" type="text" placeholder="Post title">
-			<textarea class="form-control" placeholder="Write something endearing."></textarea>
-			<input class="btn btn-default" type="submit" value="Let those words be heard!">
+			{{input class="form-control" type="text" value=title placeholder="Post title"}}
+			{{textarea class="form-control" value=body placeholder="Write something endearing."}}
+			<input class="btn btn-default" type="submit" value="Let those words be heard!" {{action 'publish'}}>
 		</form>
 	</script>
 </body>

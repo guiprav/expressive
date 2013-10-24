@@ -34,3 +34,30 @@ App.IndexController = Ember.Controller.extend({
 	]
 });
 
+App.ComposeController = Ember.Controller.extend({
+	needs: ['index', 'application'],
+
+	actions: {
+		publish: function () {
+			var user = this.get('controllers.application.user');
+
+			this.get('controllers.index.posts').unshift({
+				title: this.title,
+				body: this.body,
+
+				author: {
+					name: user.name,
+					email_uri: user.email_uri
+				},
+
+				date: new Date().toDateString()
+			});
+
+			this.set('title', '');
+			this.set('body', '');
+
+			this.transitionToRoute('index');
+		}
+	}
+});
+
