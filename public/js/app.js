@@ -8,6 +8,10 @@ App.ApplicationController = Ember.Controller.extend({
 			this.set('user', { name: this.login });
 			this.set('login', '');
 			this.set('password', '');
+		},
+
+		logout: function () {
+			this.set('user', null);
 		}
 	}
 });
