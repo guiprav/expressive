@@ -25,6 +25,11 @@
 		"url": "https://github.com/n2liquid/taigon-emblog.git"
 	},
 
+	"dependencies":
+	{
+		"express": "3.4.x"
+	},
+
 	"license": "MIT",
 
 	"engines":
