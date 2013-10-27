@@ -13,3 +13,17 @@ module.exports = function (title, body, tags, author, cb) {
 		cb(null);
 	});
 };
+
+module.exports.get = function (cb) {
+	var posts = db.handle.collection('posts');
+
+	posts.find({ $query: {}, $orderby: { on: -1 } }, function (err, posts) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		posts.toArray(cb);
+	});
+};
+

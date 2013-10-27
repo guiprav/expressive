@@ -1,28 +1,30 @@
 var moment = require('moment');
+var post = require('../post');
 var templates = require('../templates');
 
 module.exports = function (app) {
 	app.get('/', function (req, res) {
-		res.send(templates.page({
-			user: req.session.user,
+		post.get(function (err, posts) {
+			if (err) {
+				res.send(500, templates.page({
+					user: req.session.user,
+					body: templates.posts({
+						error: 'Internal server error.',
+						posts: []
+					})
+				}));
 
-			body: templates.posts({
-				posts: [
-					{
-						title: 'How to make the world better?',
+				return;
+			}
 
-						body: 'Lorem ipsum humanitarianism...',
+			res.send(templates.page({
+				user: req.session.user,
 
-						on: moment('10/26/2013').unix(),
-
-						author: {
-							name: 'Guilherme',
-							email: 'super.driver.512@gmail.com'
-						}
-					}
-				]
-			})
-		}));
+				body: templates.posts({
+					posts: posts
+				})
+			}));
+		});
 	});
 };
 

@@ -1,4 +1,9 @@
 <div class="posts-container">
+	{{#error}}
+		<div class="alert alert-warning">
+			{{this}}
+		</div>
+	{{/error}}
 	{{#posts}}
 		<article class="blogpost">
 			<header>
