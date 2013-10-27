@@ -36,7 +36,8 @@ html, body {
 }
 
 .alert,
-.posts-container > .blogpost {
+.posts-container > .blogpost,
+.compose-form {
 	width: 1024px;
 	margin-left: auto;
 	margin-right: auto;
@@ -50,6 +51,18 @@ html, body {
 		display: block;
 		width: 100%;
 		margin-bottom: 10px;
+	}
+}
+
+.compose-form {
+	& > input,
+	& > textarea {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	& > textarea {
+		height: 200px;
 	}
 }
 
