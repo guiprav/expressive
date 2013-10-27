@@ -8,7 +8,8 @@ hbs.registerHelper('verbose-date', function (timestamp) {
 
 var template_names = [
 	'page',
-	'posts'
+	'posts',
+	'invalid_credentials'
 ];
 
 template_names.forEach(function (name) {
