@@ -15,7 +15,7 @@ module.exports = function (app) {
 		var tags = req.body.tags.replace(/, +/g, ',');
 		tags = tags.split(',');
 
-		post(req.body.title, req.body.body, tags, function (err) {
+		post(req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {
 				if (!err.user_presentable) {
 					res.send(500, templates.page({
