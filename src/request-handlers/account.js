@@ -53,7 +53,9 @@ module.exports = function (app) {
 						user: req.session.user,
 
 						body: templates.create_account({
-							error: 'Internal server error.'
+							error: 'Internal server error.',
+							name: req.body.name,
+							email: req.body.email
 						})
 					}));
 				}
@@ -76,7 +78,7 @@ module.exports = function (app) {
 				user: user,
 
 				body: templates.create_account({
-					success: 'Account created successfuly!'
+					success: true
 				})
 			}));
 		});
