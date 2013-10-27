@@ -5,10 +5,8 @@ module.exports = function (app) {
 	app.post('/login', function (req, res) {
 		auth(req.body.email, req.body.password, function (err, user_data) {
 			if (err) {
-				var current_user = (req.session)? req.session.user : null;
-
 				res.send(templates.page({
-					user: current_user,
+					user: req.session.user,
 					body: templates.invalid_credentials()
 				}));
 
@@ -27,20 +25,16 @@ module.exports = function (app) {
 	});
 
 	app.get('/create-account', function (req, res) {
-		var user = (req.session)? req.session.user : null;
-
 		res.send(templates.page({
-			user: user,
+			user: req.session.user,
 			body: templates.create_account({})
 		}));
 	});
 
 	app.post('/create-account', function (req, res) {
-		var user = (req.session)? req.session.user : null;
-
 		if (req.body.password !== req.body['repeated-password']) {
 			res.send(templates.page({
-				user: user,
+				user: req.session.user,
 
 				body: templates.create_account({
 					error: "The passwords you've entered don't match. Try again.",
@@ -56,7 +50,7 @@ module.exports = function (app) {
 			if (err) {
 				if (!err.user_presentable) {
 					res.send(500, templates.page({
-						user: user,
+						user: req.session.user,
 
 						body: templates.create_account({
 							error: 'Internal server error.'
@@ -65,7 +59,7 @@ module.exports = function (app) {
 				}
 				else {
 					res.send(templates.page({
-						user: user,
+						user: req.session.user,
 
 						body: templates.create_account({
 							error: err.message,

@@ -3,10 +3,8 @@ var templates = require('../templates');
 
 module.exports = function (app) {
 	app.get('/', function (req, res) {
-		var user = (req.session)? req.session.user : null;
-
 		res.send(templates.page({
-			user: user,
+			user: req.session.user,
 
 			body: templates.posts({
 				posts: [
