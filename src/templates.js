@@ -1,4 +1,6 @@
 var fs = require('fs');
+var path = require('path');
+var glob = require('glob');
 var hbs = require('handlebars');
 var moment = require('moment');
 
@@ -6,15 +8,16 @@ hbs.registerHelper('verbose-date', function (timestamp) {
 	return moment.unix(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a");
 });
 
-var template_names = [
-	'page',
-	'posts',
-	'create_account',
-	'invalid_credentials'
-];
+glob(__dirname + '/../templates/*.hbs', function (err, files) {
+	if (err) {
+		throw err;
+	}
 
-template_names.forEach(function (name) {
-	var template_src = fs.readFileSync(__dirname + '/../templates/' + name + '.hbs', 'utf8');
-	module.exports[name] = hbs.compile(template_src);
+	files.forEach(function (file) {
+		var template_name = path.basename(file, '.hbs');
+		var template_src = fs.readFileSync(file, 'utf8');
+
+		module.exports[template_name] = hbs.compile(template_src);
+	});
 });
 
