@@ -20,6 +20,7 @@ module.exports = function (app) {
 				if (!err.user_presentable) {
 					res.send(500, templates.page({
 						user: req.session.user,
+
 						body: templates.compose({
 							error: 'Internal server error.',
 							authenticated: !!req.session.user,
@@ -32,6 +33,7 @@ module.exports = function (app) {
 				else {
 					res.send(templates.page({
 						user: req.session.user,
+
 						body: templates.compose({
 							error: err.message,
 							authenticated: !!req.session.user,
@@ -47,6 +49,7 @@ module.exports = function (app) {
 
 			res.send(templates.page({
 				user: req.session.user,
+
 				body: templates.compose({
 					success: 'Post published successfuly!',
 					authenticated: !!req.session.user

@@ -8,6 +8,7 @@ module.exports = function (app) {
 			if (err) {
 				res.send(500, templates.page({
 					user: req.session.user,
+
 					body: templates.posts({
 						error: 'Internal server error.',
 						posts: []
