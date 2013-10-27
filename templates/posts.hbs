@@ -1,0 +1,26 @@
+<div class="posts-container">
+	{{#posts}}
+		<article class="blogpost">
+			<header>
+				<h1>
+					{{title}}
+				</h1>
+				Posted by
+				<a class="author" href="mailto:{{author.email}}">
+					{{author.name}}
+				</a>
+				on
+				<span class="date">
+					{{verbose-date on}}.
+				</span>
+			</header>
+			{{body}}
+		</article>
+	{{/posts}}
+	{{^posts}}
+		<div class="alert alert-info">
+			There are no posts at this time.
+		</div>
+	{{/posts}}
+</div>
+

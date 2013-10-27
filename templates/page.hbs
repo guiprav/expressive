@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet/less" href="/css/emblog.less">
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
+<header class="emblog-header">
+	<div class="emblog-header-padder">
+		<h1>
+			Embl⊘g
+		</h1>
+		{{#user}}
+			<span class="welcome-message">
+				Welcome back, {{name}}!
+			</span>
+			<span class="actions">
+				<a href="/compose">
+					Let the world know
+				</a>
+				or
+				<a href="/logout">
+					get out.
+				</a>
+			</span>
+		{{/user}}
+		{{^user}}
+			<form class="login-form" method="post" action="/login">
+				<input class="form-control" name="email" type="text" placeholder="Email">
+				<input class="form-control" name="password" type="password" placeholder="Password">
+				<input class="btn btn-default" type="submit" value="Login">
+			</form>
+			or
+			<a href="/create-account">
+				create an account.
+			</a>
+		{{/user}}
+	</div>
+</header>
+{{&body}}
+
