@@ -38,6 +38,15 @@ app.get('/', function (req, res) {
 	}));
 });
 
+app.get('/create-account', function (req, res) {
+	var user = (req.session)? req.session.user : null;
+
+	res.send(templates.page({
+		user: user,
+		body: templates.create_account({})
+	}));
+});
+
 app.post('/login', function (req, res) {
 	auth(req.body.email, req.body.password, function (err, user_data) {
 		if (err) {

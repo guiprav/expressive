@@ -9,6 +9,7 @@ hbs.registerHelper('verbose-date', function (timestamp) {
 var template_names = [
 	'page',
 	'posts',
+	'create_account',
 	'invalid_credentials'
 ];
 
