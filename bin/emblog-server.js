@@ -1,6 +1,7 @@
 var http = require('http');
 var express = require('express');
 var moment = require('moment');
+var db = require('../src/database');
 var templates = require('../src/templates');
 
 var app = express();
@@ -30,5 +31,11 @@ app.get('/', function (req, res) {
 	}));
 });
 
-http.createServer(app).listen(3000);
+db.connect(function (err) {
+	if (err) {
+		throw err;
+	}
+
+	http.createServer(app).listen(3000);
+});
 
