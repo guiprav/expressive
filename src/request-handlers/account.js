@@ -75,7 +75,7 @@ module.exports = function (app) {
 			}
 
 			res.send(templates.page({
-				user: user,
+				user: req.session.user,
 
 				body: templates.create_account({
 					success: true
