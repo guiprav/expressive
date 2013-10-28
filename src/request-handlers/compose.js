@@ -15,6 +15,10 @@ module.exports = function (app) {
 		var tags = req.body.tags.replace(/, +/g, ',');
 		tags = tags.split(',');
 
+		if (tags.length === 1 && tags[0] === '') {
+			tags = [];
+		}
+
 		post(req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {
 				if (!err.user_presentable) {
