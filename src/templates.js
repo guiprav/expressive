@@ -6,7 +6,7 @@ var marked = require('marked');
 var moment = require('moment');
 
 hbs.registerHelper('markdown', function (text) {
-	return new hbs.SafeString(marked(text));
+	return new hbs.SafeString(marked(text, { sanitize: true }));
 });
 
 hbs.registerHelper('verbose-date', function (timestamp) {
