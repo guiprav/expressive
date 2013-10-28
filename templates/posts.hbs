@@ -18,6 +18,16 @@
 				<span class="date">
 					{{verbose-date on}}.
 				</span>
+				{{#if tags}}
+					<div class="tags">
+						Tags:
+						<ul class="comma-separated">
+							{{#tags}}
+								<li>{{this}}</li>
+							{{/tags}}
+						</ul>
+					</div>
+				{{/if}}
 			</header>
 			{{body}}
 		</article>

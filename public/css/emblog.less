@@ -44,6 +44,24 @@ html, body {
 	margin-right: auto;
 }
 
+ul.comma-separated {
+	display: inline;
+	padding-left: 0;
+	list-style: none;
+
+	& > li {
+		display: inline;
+
+		&:after {
+			content: ', ';
+		}
+
+		&:last-of-type:after {
+			content: '';
+		}
+	}
+}
+
 .create-account-form {
 	width: 400px;
 	margin: 0 auto;
