@@ -12,7 +12,13 @@ app.use(express.cookieParser());
 app.use(express.cookieSession({ secret: 'ijhcijwrvivelbtektjqpb' }));
 app.use(express['static'](__dirname + '/../public'));
 
-app.use(auth.session_handler);
+app.use(function (req, res, next) {
+	if (!req.session) {
+		req.session = { user: null };
+	}
+
+	next();
+});
 
 request_handlers.register(app);
 

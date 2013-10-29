@@ -20,14 +20,6 @@ module.exports = function (email, password, cb) {
 	});
 };
 
-module.exports.session_handler = function (req, res, next) {
-	if (!req.session) {
-		req.session = { user: null };
-	}
-
-	next();
-};
-
 module.exports.create = function (email, password, name, cb) {
 	if (name === '') {
 		var err = new Error('Name must not be empty.');
