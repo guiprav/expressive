@@ -1,29 +1,18 @@
 var moment = require('moment');
 var post = require('../post');
-var templates = require('../templates');
 
-module.exports = function (app) {
+module.exports = function (app, bp) {
 	app.get('/', function (req, res) {
 		post.get(function (err, posts) {
 			if (err) {
-				res.send(500, templates.page({
-					user: req.session.user,
-
-					body: templates.posts({
-						error: 'Internal server error.',
-						posts: []
-					})
-				}));
+				req.session.messages.push({ type: 'warning', text: 'Internal server error.' });
+				res.send(500, bp.render_page(req, 'posts'));
 
 				return;
 			}
 
-			res.send(templates.page({
-				user: req.session.user,
-
-				body: templates.posts({
-					posts: posts
-				})
+			res.send(bp.render_page(req, 'posts', {
+				posts: posts
 			}));
 		});
 	});

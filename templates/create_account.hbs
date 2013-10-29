@@ -1,22 +1,10 @@
 <div class="create-account-container">
-	{{#success}}
-		<div class="alert alert-success">
-			Account created successfuly!
-		</div>
-	{{/success}}
-	{{^success}}
-		{{#error}}
-			<div class="alert alert-warning">
-				{{this}}
-			</div>
-		{{/error}}
-		<form class="create-account-form" method="post">
-			<input class="form-control" type="text" name="name" value="{{name}}" placeholder="Name">
-			<input class="form-control" type="text" name="email" value="{{email}}" placeholder="Email">
-			<input class="form-control" type="password" name="password" placeholder="Password">
-			<input class="form-control" type="password" name="repeated-password" placeholder="Repeat password">
-			<input class="btn btn-default" type="submit" value="Create account">
-		</form>
-	{{/success}}
+	<form class="create-account-form" method="post">
+		<input class="form-control" type="text" name="name" value="{{name}}" placeholder="Name">
+		<input class="form-control" type="text" name="email" value="{{email}}" placeholder="Email">
+		<input class="form-control" type="password" name="password" placeholder="Password">
+		<input class="form-control" type="password" name="repeated-password" placeholder="Repeat password">
+		<input class="btn btn-default" type="submit" value="Create account">
+	</form>
 </div>
 

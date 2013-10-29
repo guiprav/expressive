@@ -1,34 +1,9 @@
 <div class="compose-container">
-	{{#success}}
-		<div class="alert alert-success">
-			Post published successfuly!
-			<a href="/">
-				Go check it out.
-			</a>
-		</div>
-	{{/success}}
-	{{^success}}
-		{{^authenticated}}
-			<div class="alert alert-warning">
-				You must be authenticated in order to post.
-				<a href="/create-account">
-					Create an account?
-				</a>
-			</div>
-		{{/authenticated}}
-		{{#error}}
-			<div class="alert alert-warning">
-				{{this}}
-			</div>
-		{{/error}}
-		{{#authenticated}}
-			<form class="compose-form" method="post">
-				<input class="form-control" type="text" name="title" value="{{title}}" placeholder="Post title">
-				<textarea class="form-control" name="body" value="{{body}}" placeholder="Write something endearing..."></textarea>
-				<input class="form-control" type="text" name="tags" value="{{tags}}" placeholder="Comma-separated list of tags?">
-				<input class="btn btn-default" type="submit" value="Let those words be heard!">
-			</form>
-		{{/authenticated}}
-	{{/success}}
+	<form class="compose-form" method="post">
+		<input class="form-control" type="text" name="title" value="{{title}}" placeholder="Post title">
+		<textarea class="form-control" name="body" value="{{body}}" placeholder="Write something endearing..."></textarea>
+		<input class="form-control" type="text" name="tags" value="{{tags}}" placeholder="Comma-separated list of tags?">
+		<input class="btn btn-default" type="submit" value="Let those words be heard!">
+	</form>
 </div>
 

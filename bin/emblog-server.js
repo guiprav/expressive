@@ -17,6 +17,10 @@ app.use(function (req, res, next) {
 		req.session = {};
 	}
 
+	if (!req.session.messages) {
+		req.session.messages = [];
+	}
+
 	next();
 });
 
