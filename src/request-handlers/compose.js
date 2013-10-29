@@ -1,7 +1,7 @@
 var post = require('../post');
 
-module.exports = function (app, bp) {
-	app.get('/compose', function (req, res) {
+module.exports = function (app, bp_wrapper) {
+	app.get('/compose', bp_wrapper(function (req, res, bp) {
 		if (!req.session.user) {
 			req.session.messages.push({ type: 'warning', text: 'You must be authenticated in order to post.' });
 			res.redirect('/');
@@ -9,10 +9,10 @@ module.exports = function (app, bp) {
 			return;
 		}
 
-		res.send(bp.render_page(req, 'compose'));
-	});
+		bp.send_page('compose');
+	}));
 
-	app.post('/compose', function (req, res) {
+	app.post('/compose', bp_wrapper(function (req, res, bp) {
 		if (!req.session.user) {
 			req.session.messages.push({ type: 'warning', text: 'You must be authenticated in order to post.' });
 			res.redirect('/');
@@ -32,20 +32,21 @@ module.exports = function (app, bp) {
 				if (!err.user_presentable) {
 					req.session.messages.push({ type: 'warning', text: 'Internal server error.' });
 
-					res.send(500, bp.render_page(req, 'compose', {
+					res.status(500);
+					bp.send_page('compose', {
 						title: req.body.title,
 						body: req.body.body,
 						tags: req.body.tags
-					}));
+					});
 				}
 				else {
 					req.session.messages.push({ type: 'warning', text: err.message });
 
-					res.send(bp.render_page(req, 'compose', {
+					bp.send_page('compose', {
 						title: req.body.title,
 						body: req.body.body,
 						tags: req.body.tags
-					}));
+					});
 				}
 
 				return;
@@ -55,5 +56,5 @@ module.exports = function (app, bp) {
 
 			res.redirect('/');
 		});
-	});
+	}));
 };

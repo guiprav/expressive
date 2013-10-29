@@ -1,6 +1,6 @@
 var auth = require('../auth');
 
-module.exports = function (app, bp) {
+module.exports = function (app, bp_wrapper) {
 	app.post('/login', function (req, res) {
 		auth(req.body.email, req.body.password, function (err, user_data) {
 			if (err) {
@@ -22,18 +22,18 @@ module.exports = function (app, bp) {
 		res.redirect('/');
 	});
 
-	app.get('/create-account', function (req, res) {
-		res.send(bp.render_page(req, 'create_account'));
-	});
+	app.get('/create-account', bp_wrapper(function (req, res, bp) {
+		bp.send_page('create_account');
+	}));
 
-	app.post('/create-account', function (req, res) {
+	app.post('/create-account', bp_wrapper(function (req, res, bp) {
 		if (req.body.password !== req.body['repeated-password']) {
 			req.session.messages.push({ type: 'warning', text: "The passwords you've entered don't match. Try again." });
 
-			res.send(bp.render_page(req, 'create_account', {
+			bp.send_page('create_account', {
 				name: req.body.name,
 				email: req.body.email
-			}));
+			});
 
 			return;
 		}
@@ -43,18 +43,19 @@ module.exports = function (app, bp) {
 				if (!err.user_presentable) {
 					req.session.messages.push({ type: 'warning', text: 'Internal server error.' });
 
-					res.send(500, bp.render_page(req, 'create_account', {
+					res.status(500);
+					bp.send_page('create_account', {
 						name: req.body.name,
 						email: req.body.email
-					}));
+					});
 				}
 				else {
 					req.session.messages.push({ type: 'warning', text: err.message });
 
-					res.send(bp.render_page(req, 'create_account', {
+					bp.send_page('create_account', {
 						name: req.body.name,
 						email: req.body.email
-					}));
+					});
 				}
 
 				return;
@@ -64,6 +65,6 @@ module.exports = function (app, bp) {
 
 			res.redirect('/');
 		});
-	});
+	}));
 };
 

@@ -1,21 +1,31 @@
 var glob = require('glob');
 var templates = require('./templates');
 
-var boilerplate = {
-	render_page: function (req, body_template_name, body_template_parameters) {
+function boilerplate_wrapper (handler) {
+	return function (req, res) {
+		handler.call(this, req, res, {
+			req: req,
+			res: res,
+			send_page: boilerplate_functions.send_page
+		});
+	};
+}
+
+var boilerplate_functions = {
+	send_page: function (body_template_name, body_template_parameters) {
 		if (!body_template_parameters) {
 			body_template_parameters = {};
 		}
 
 		var page = templates.page({
-			user: req.session.user,
-			messages: req.session.messages,
+			user: this.req.session.user,
+			messages: this.req.session.messages,
 			body: templates[body_template_name](body_template_parameters)
 		});
 
-		req.session.messages = [];
+		this.req.session.messages = [];
 
-		return page;
+		this.res.send(page);
 	}
 };
 
@@ -27,7 +37,7 @@ module.exports = {
 			}
 
 			files.forEach(function (file) {
-				require(file)(app, boilerplate);
+				require(file)(app, boilerplate_wrapper);
 			});
 		});
 	}
