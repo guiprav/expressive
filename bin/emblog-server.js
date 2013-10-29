@@ -14,7 +14,7 @@ app.use(express['static'](__dirname + '/../public'));
 
 app.use(function (req, res, next) {
 	if (!req.session) {
-		req.session = { user: null };
+		req.session = {};
 	}
 
 	next();
