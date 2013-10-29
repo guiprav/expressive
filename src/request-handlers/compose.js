@@ -3,7 +3,7 @@ var post = require('../post');
 module.exports = function (app, bp_wrapper) {
 	app.get('/compose', bp_wrapper(function (req, res, bp) {
 		if (!req.session.user) {
-			req.session.messages.push({ type: 'warning', text: 'You must be authenticated in order to post.' });
+			bp.push_message('warning', 'You must be authenticated in order to post.');
 			res.redirect('/');
 
 			return;
@@ -14,7 +14,7 @@ module.exports = function (app, bp_wrapper) {
 
 	app.post('/compose', bp_wrapper(function (req, res, bp) {
 		if (!req.session.user) {
-			req.session.messages.push({ type: 'warning', text: 'You must be authenticated in order to post.' });
+			bp.push_message('warning', 'You must be authenticated in order to post.');
 			res.redirect('/');
 
 			return;
@@ -30,9 +30,9 @@ module.exports = function (app, bp_wrapper) {
 		post(req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {
 				if (!err.user_presentable) {
-					req.session.messages.push({ type: 'warning', text: 'Internal server error.' });
-
 					res.status(500);
+					bp.push_message('warning', 'Internal server error.');
+
 					bp.send_page('compose', {
 						title: req.body.title,
 						body: req.body.body,
@@ -40,7 +40,7 @@ module.exports = function (app, bp_wrapper) {
 					});
 				}
 				else {
-					req.session.messages.push({ type: 'warning', text: err.message });
+					bp.push_message('warning', err.message);
 
 					bp.send_page('compose', {
 						title: req.body.title,
@@ -52,7 +52,7 @@ module.exports = function (app, bp_wrapper) {
 				return;
 			}
 
-			req.session.messages.push({ type: 'success', text: 'Post published successfuly!' });
+			bp.push_message('success', 'Post published successfuly!');
 
 			res.redirect('/');
 		});

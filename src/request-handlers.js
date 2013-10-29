@@ -6,12 +6,17 @@ function boilerplate_wrapper (handler) {
 		handler.call(this, req, res, {
 			req: req,
 			res: res,
+			push_message: boilerplate_functions.push_message,
 			send_page: boilerplate_functions.send_page
 		});
 	};
 }
 
 var boilerplate_functions = {
+	push_message: function (type, text) {
+		this.req.session.messages.push({ type: type, text: text });
+	},
+
 	send_page: function (body_template_name, body_template_parameters) {
 		if (!body_template_parameters) {
 			body_template_parameters = {};

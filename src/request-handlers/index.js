@@ -5,9 +5,8 @@ module.exports = function (app, bp_wrapper) {
 	app.get('/', bp_wrapper(function (req, res, bp) {
 		post.get(function (err, posts) {
 			if (err) {
-				req.session.messages.push({ type: 'warning', text: 'Internal server error.' });
-
 				res.status(500);
+				bp.push_message('warning', 'Internal server error.');
 				bp.send_page('posts');
 
 				return;
