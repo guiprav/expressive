@@ -22,8 +22,15 @@ html, body {
 	& > h1 {
 		float: left;
 		margin-top: -18px;
-		font-size: 110px;
-		color: #EF5734;
+
+		& > a {
+			font-size: 110px;
+			color: #EF5734;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
 	}
 
 	& > .login-form input {
