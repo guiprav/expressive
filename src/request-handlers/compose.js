@@ -71,17 +71,18 @@ module.exports = function (app, bp_wrapper) {
 				if (!err.user_presentable) {
 					res.status(500);
 					bp.push_message('warning', 'Internal server error.');
-					bp.send_page('compose');
+					bp.send_page('compose', { editing: true });
 				}
 				else {
 					bp.push_message('warning', err.message);
-					bp.send_page('compose');
+					bp.send_page('compose', { editing: true });
 				}
 
 				return;
 			}
 
 			bp.send_page('compose', {
+				editing: true,
 				title: post.title,
 				body: post.body,
 				tags: post.tags.join(', ')
@@ -134,6 +135,7 @@ module.exports = function (app, bp_wrapper) {
 					bp.push_message('warning', 'Internal server error.');
 
 					bp.send_page('compose', {
+						editing: true,
 						title: req.body.title,
 						body: req.body.body,
 						tags: req.body.tags
@@ -143,6 +145,7 @@ module.exports = function (app, bp_wrapper) {
 					bp.push_message('warning', err.message);
 
 					bp.send_page('compose', {
+						editing: true,
 						title: req.body.title,
 						body: req.body.body,
 						tags: req.body.tags
