@@ -1,4 +1,5 @@
-var mongo = require('mongodb').MongoClient;
+var mongo_lib = require('mongodb');
+var mongo_client = mongo_lib.MongoClient;
 
 if (process.env.NODE_ENV === 'production') {
 	var mongo_uri = 'mongodb://emblog:ashfgaosgnoekgnwoegksakgm@ds053148.mongolab.com:53148/heroku_app18867064';
@@ -10,8 +11,10 @@ else {
 module.exports = {
 	handle: null,
 
+	ObjectID: mongo_lib.ObjectID,
+
 	connect: function (cb) {
-		mongo.connect(mongo_uri, function (err, db) {
+		mongo_client.connect(mongo_uri, function (err, db) {
 			if (err) {
 				cb(err);
 				return;
