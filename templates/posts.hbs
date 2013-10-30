@@ -13,6 +13,16 @@
 				<span class="date">
 					{{verbose-date on}}.
 				</span>
+				{{#last_editor}}
+					Last edited by
+					<a class="author" href="mailto:{{email}}">
+						{{name}}
+					</a>
+					on
+					<span class="date">
+						{{verbose-date ../last_edited_on}}.
+					</span>
+				{{/last_editor}}
 				{{#if tags}}
 					<div class="tags">
 						Tags:
