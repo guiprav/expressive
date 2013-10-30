@@ -43,6 +43,19 @@ module.exports.edit = function (post_id, title, body, tags, editor, cb) {
 	);
 };
 
+module.exports.delete = function (post_id, cb) {
+	var posts = db.handle.collection('posts');
+
+	posts.remove({ _id: new db.ObjectID(post_id) }, { safe: true }, function (err) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		cb(null);
+	});
+};
+
 module.exports.get = function (cb) {
 	var posts = db.handle.collection('posts');
 

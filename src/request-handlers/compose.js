@@ -97,6 +97,29 @@ module.exports = function (app, bp_wrapper) {
 			return;
 		}
 
+		if (req.body.delete) {
+			post.delete(req.params.post_id, function (err) {
+				if (err) {
+					if (!err.user_presentable) {
+						bp.push_message('warning', 'Internal server error.');
+						res.redirect('/');
+					}
+					else {
+						bp.push_message('warning', err.message);
+						res.redirect('/');
+					}
+
+					return;
+				}
+
+				bp.push_message('success', 'Post deleted successfuly!');
+
+				res.redirect('/');
+			});
+
+			return;
+		}
+
 		var tags = req.body.tags.replace(/, +/g, ',');
 		tags = tags.split(',');
 
