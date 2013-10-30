@@ -1,28 +1,28 @@
 {
-	"name": "taigon-emblog",
+	"name": "tagon-expressive",
 
 	"version": "0.0.0",
 
-	"homepage": "https://github.com/n2liquid/taigon-emblog",
+	"homepage": "https://github.com/n2liquid/tagon-expressive",
 
 	"author": "Guilherme Vieira <super.driver.512@gmail.com>",
 
-	"description": "Taigon8 challenged me to write this blog software :)",
+	"description": "Tagon8 challenged me to write this blog software :)",
 
 	"bin":
 	{
-		"emblog-server": "./bin/emblog-server.js"
+		"expressive-server": "./bin/expressive-server.js"
 	},
 
 	"scripts":
 	{
-		"start": "forever -w ./bin/emblog-server.js"
+		"start": "forever -w ./bin/expressive-server.js"
 	},
 
 	"repository":
 	{
 		"type": "git",
-		"url": "https://github.com/n2liquid/taigon-emblog.git"
+		"url": "https://github.com/n2liquid/tagon-expressive.git"
 	},
 
 	"dependencies":

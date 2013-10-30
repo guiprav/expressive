@@ -2,10 +2,10 @@ var mongo_lib = require('mongodb');
 var mongo_client = mongo_lib.MongoClient;
 
 if (process.env.NODE_ENV === 'production') {
-	var mongo_uri = 'mongodb://emblog:ashfgaosgnoekgnwoegksakgm@ds053148.mongolab.com:53148/heroku_app18867064';
+	var mongo_uri = 'mongodb://expressive:ashfgaosgnoekgnwoegksakgm@ds053148.mongolab.com:53148/heroku_app18867064';
 }
 else {
-	var mongo_uri = 'mongodb://localhost/emblog';
+	var mongo_uri = 'mongodb://localhost/expressive';
 }
 
 module.exports = {
