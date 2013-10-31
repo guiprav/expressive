@@ -13,6 +13,12 @@ module.exports = function (app) {
 	});
 
 	app.post('/compose', function (req, res) {
+		var template_data = {
+			title: req.body.title,
+			body: req.body.body,
+			tags: req.body.tags
+		};
+
 		if (!req.session.user) {
 			res.push_message('warning', 'You must be authenticated in order to post.');
 			res.redirect('/');
@@ -32,28 +38,17 @@ module.exports = function (app) {
 				if (!err.user_presentable) {
 					res.status(500);
 					res.push_message('warning', 'Internal server error.');
-
-					res.send_page('compose', {
-						title: req.body.title,
-						body: req.body.body,
-						tags: req.body.tags
-					});
+					res.send_page('compose', template_data);
 				}
 				else {
 					res.push_message('warning', err.message);
-
-					res.send_page('compose', {
-						title: req.body.title,
-						body: req.body.body,
-						tags: req.body.tags
-					});
+					res.send_page('compose', template_data);
 				}
 
 				return;
 			}
 
 			res.push_message('success', 'Post published successfuly!');
-
 			res.redirect('/');
 		});
 	});
@@ -91,6 +86,13 @@ module.exports = function (app) {
 	});
 
 	app.post('/edit/:post_id',  function (req, res) {
+		var template_data = {
+			editing: true,
+			title: req.body.title,
+			body: req.body.body,
+			tags: req.body.tags
+		};
+
 		if (!req.session.user) {
 			res.push_message('warning', 'You must be authenticated in order to edit this post.');
 			res.redirect('/');
@@ -133,30 +135,17 @@ module.exports = function (app) {
 				if (!err.user_presentable) {
 					res.status(500);
 					res.push_message('warning', 'Internal server error.');
-
-					res.send_page('compose', {
-						editing: true,
-						title: req.body.title,
-						body: req.body.body,
-						tags: req.body.tags
-					});
+					res.send_page('compose', template_data);
 				}
 				else {
 					res.push_message('warning', err.message);
-
-					res.send_page('compose', {
-						editing: true,
-						title: req.body.title,
-						body: req.body.body,
-						tags: req.body.tags
-					});
+					res.send_page('compose', template_data);
 				}
 
 				return;
 			}
 
 			res.push_message('success', 'Post edited successfuly!');
-
 			res.redirect('/');
 		});
 	});
