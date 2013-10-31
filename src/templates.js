@@ -14,6 +14,10 @@ hbs.registerHelper('markdown', function (text) {
 	}));
 });
 
+hbs.registerHelper('comma-separated', function (array) {
+	return array.join(', ');
+});
+
 hbs.registerHelper('verbose-date', function (timestamp) {
 	return moment.unix(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a");
 });
