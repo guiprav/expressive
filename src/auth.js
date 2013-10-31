@@ -1,10 +1,29 @@
+var crypto = require('crypto');
 var db = require('./database');
+
+function md5 (data) {
+	return crypto.createHash('md5').update(data).digest('hex');
+}
 
 module.exports = function (email, password, cb) {
 	var users = db.handle.collection('users');
 
 	users.findOne(
-		{ email: email, password: password },
+		{
+			email: email,
+
+			$or: [
+				{
+					password: password,
+					password_cipher: { $exists: false }
+				},
+
+				{
+					password: md5(password),
+					password_cipher: 'md5'
+				}
+			]
+		},
 
 		function (err, user) {
 			if (err) {
@@ -76,7 +95,12 @@ module.exports.create = function (email, password, name, cb) {
 			}
 			else {
 				users.insert(
-					{ name: name, email: email, password: password },
+					{
+						name: name,
+						email: email,
+						password: md5(password),
+						password_cipher: 'md5'
+					},
 
 					function (err) {
 						if (err) {
