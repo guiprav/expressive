@@ -1,4 +1,9 @@
 <div class="posts-container">
+	{{^posts}}
+		<div class="alert alert-info">
+			There are no posts at this time.
+		</div>
+	{{/posts}}
 	{{#posts}}
 		<article class="blogpost">
 			<header class="blogpost-header">
@@ -47,11 +52,6 @@
 				{{markdown body}}
 			</div>
 		</article>
-	{{/posts}}
-	{{^posts}}
-		<div class="alert alert-info">
-			There are no posts at this time.
-		</div>
 	{{/posts}}
 </div>
 
