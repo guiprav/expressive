@@ -6,6 +6,16 @@ var boilerplate = {
 		this.req.session.messages.push({ type: type, text: text });
 	},
 
+	push_error_object: function (err) {
+		if (!err.user_presentable) {
+			this.res.status(500);
+			this.res.push_message('warning', 'Internal server error :(');
+		}
+		else {
+			this.res.push_message('warning', err.message);
+		}
+	},
+
 	send_page: function (body_template_name, body_template_parameters) {
 		if (!body_template_parameters) {
 			body_template_parameters = {};
@@ -29,6 +39,7 @@ module.exports = {
 			var api = { req: req, res: res };
 
 			res.push_message = boilerplate.push_message.bind(api);
+			res.push_error_object = boilerplate.push_error_object.bind(api);
 			res.send_page = boilerplate.send_page.bind(api);
 
 			next();

@@ -5,8 +5,7 @@ module.exports = function (app) {
 	app.get('/', function (req, res) {
 		post.get(function (err, posts) {
 			if (err) {
-				res.status(500);
-				res.push_message('warning', 'Internal server error.');
+				res.push_error_object(err);
 				res.send_page('posts');
 
 				return;

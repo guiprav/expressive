@@ -35,15 +35,8 @@ module.exports = function (app) {
 
 		post(req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {
-				if (!err.user_presentable) {
-					res.status(500);
-					res.push_message('warning', 'Internal server error.');
-					res.send_page('compose', template_data);
-				}
-				else {
-					res.push_message('warning', err.message);
-					res.send_page('compose', template_data);
-				}
+				res.push_error_object(err);
+				res.send_page('compose', template_data);
 
 				return;
 			}
@@ -63,15 +56,8 @@ module.exports = function (app) {
 
 		post.getById(req.params.post_id, function (err, post) {
 			if (err) {
-				if (!err.user_presentable) {
-					res.status(500);
-					res.push_message('warning', 'Internal server error.');
-					res.send_page('compose', { editing: true });
-				}
-				else {
-					res.push_message('warning', err.message);
-					res.send_page('compose', { editing: true });
-				}
+				res.push_error_object(err);
+				res.send_page('compose', { editing: true });
 
 				return;
 			}
@@ -103,20 +89,13 @@ module.exports = function (app) {
 		if (req.body.delete) {
 			post.delete(req.params.post_id, function (err) {
 				if (err) {
-					if (!err.user_presentable) {
-						res.push_message('warning', 'Internal server error.');
-						res.redirect('/');
-					}
-					else {
-						res.push_message('warning', err.message);
-						res.redirect('/');
-					}
+					res.push_error_object(err);
+					res.redirect('/');
 
 					return;
 				}
 
 				res.push_message('success', 'Post deleted successfuly!');
-
 				res.redirect('/');
 			});
 
@@ -132,15 +111,8 @@ module.exports = function (app) {
 
 		post.edit(req.params.post_id, req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {
-				if (!err.user_presentable) {
-					res.status(500);
-					res.push_message('warning', 'Internal server error.');
-					res.send_page('compose', template_data);
-				}
-				else {
-					res.push_message('warning', err.message);
-					res.send_page('compose', template_data);
-				}
+				res.push_error_object(err);
+				res.send_page('compose', template_data);
 
 				return;
 			}

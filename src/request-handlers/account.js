@@ -42,15 +42,8 @@ module.exports = function (app) {
 
 		auth.create(req.body.email, req.body.password, req.body.name, function (err) {
 			if (err) {
-				if (!err.user_presentable) {
-					res.status(500);
-					res.push_message('warning', 'Internal server error.');
-					res.send_page('create_account', template_data);
-				}
-				else {
-					res.push_message('warning', err.message);
-					res.send_page('create_account', template_data);
-				}
+				res.push_error_object(err);
+				res.send_page('create_account', template_data);
 
 				return;
 			}
