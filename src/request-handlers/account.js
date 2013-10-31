@@ -34,7 +34,7 @@ module.exports = function (app) {
 		};
 
 		if (req.body.password !== req.body['repeated-password']) {
-			res.push_message('warning', "The passwords you've entered don't match. Try again.");
+			res.push_message('danger', "The passwords you've entered don't match. Try again.");
 			res.send_page('create_account', template_data);
 
 			return;

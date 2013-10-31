@@ -9,10 +9,10 @@ var boilerplate = {
 	push_error_object: function (err) {
 		if (!err.user_presentable) {
 			this.res.status(500);
-			this.res.push_message('warning', 'Internal server error :(');
+			this.res.push_message('danger', 'Internal server error :(');
 		}
 		else {
-			this.res.push_message('warning', err.message);
+			this.res.push_message('danger', err.message);
 		}
 	},
 

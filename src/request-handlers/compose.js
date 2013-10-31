@@ -3,7 +3,7 @@ var post = require('../post');
 module.exports = function (app) {
 	app.get('/article/compose', function (req, res) {
 		if (!req.session.user) {
-			res.push_message('warning', 'You must be authenticated in order to post.');
+			res.push_message('danger', 'You must be authenticated in order to post.');
 			res.redirect('/');
 
 			return;
@@ -20,7 +20,7 @@ module.exports = function (app) {
 		};
 
 		if (!req.session.user) {
-			res.push_message('warning', 'You must be authenticated in order to post.');
+			res.push_message('danger', 'You must be authenticated in order to post.');
 			res.redirect('/');
 
 			return;
@@ -48,7 +48,7 @@ module.exports = function (app) {
 
 	app.get('/article/edit/:post_id', function (req, res) {
 		if (!req.session.user) {
-			res.push_message('warning', 'You must be authenticated in order to edit this post.');
+			res.push_message('danger', 'You must be authenticated in order to edit this post.');
 			res.redirect('/');
 
 			return;
@@ -80,7 +80,7 @@ module.exports = function (app) {
 		};
 
 		if (!req.session.user) {
-			res.push_message('warning', 'You must be authenticated in order to edit this post.');
+			res.push_message('danger', 'You must be authenticated in order to edit this post.');
 			res.redirect('/');
 
 			return;
