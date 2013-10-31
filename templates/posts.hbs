@@ -37,11 +37,13 @@
 						Tags: {{comma-separated tags}}.
 					</div>
 				{{/if}}
-				<div class="actions">
-					<a href="/article/edit/{{_id}}">
-						Edit or delete this post.
-					</a>
-				</div>
+				{{#if ../logged_in}}
+					<div class="actions">
+						<a href="/article/edit/{{_id}}">
+							Edit or delete this post.
+						</a>
+					</div>
+				{{/if}}
 			</header>
 			<div class="blogpost-body">
 				{{markdown body}}
