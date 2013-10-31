@@ -1,7 +1,7 @@
 var auth = require('../auth');
 
 module.exports = function (app) {
-	app.post('/login', function (req, res) {
+	app.post('/account/login', function (req, res) {
 		auth(req.body.email, req.body.password, function (err, user_data) {
 			if (err) {
 				res.push_error_object(err);
@@ -16,18 +16,18 @@ module.exports = function (app) {
 		});
 	});
 
-	app.get('/logout', function (req, res) {
+	app.get('/account/logout', function (req, res) {
 		req.session.user = null;
 
 		res.push_message('info', 'You have been logged out.');
 		res.redirect('/');
 	});
 
-	app.get('/create-account', function (req, res) {
+	app.get('/account/create', function (req, res) {
 		res.send_page('create_account');
 	});
 
-	app.post('/create-account', function (req, res) {
+	app.post('/account/create', function (req, res) {
 		var template_data = {
 			name: req.body.name,
 			email: req.body.email

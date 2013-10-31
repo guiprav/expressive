@@ -21,23 +21,23 @@
 				Welcome back, {{name}}!
 			</span>
 			<span class="actions">
-				<a href="/compose">
+				<a href="/article/compose">
 					Let the world know
 				</a>
 				or
-				<a href="/logout">
+				<a href="/account/logout">
 					get out.
 				</a>
 			</span>
 		{{/user}}
 		{{^user}}
-			<form class="login-form" method="post" action="/login">
+			<form class="login-form" method="post" action="/account/login">
 				<input class="form-control" name="email" type="text" placeholder="Email">
 				<input class="form-control" name="password" type="password" placeholder="Password">
 				<input class="btn btn-default" type="submit" value="Login">
 			</form>
 			or
-			<a href="/create-account">
+			<a href="/account/create">
 				create an account.
 			</a>
 		{{/user}}
