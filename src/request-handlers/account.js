@@ -4,7 +4,7 @@ module.exports = function (app) {
 	app.post('/login', function (req, res) {
 		auth(req.body.email, req.body.password, function (err, user_data) {
 			if (err) {
-				res.push_message('warning', 'Invalid email or password. Please try again.');
+				res.push_error_object(err);
 				res.redirect('/');
 
 				return;

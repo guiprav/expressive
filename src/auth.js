@@ -18,7 +18,10 @@ module.exports = function (email, password, cb) {
 				cb(null, user);
 			}
 			else {
-				cb(new Error('Invalid credentials.'));
+				var err = new Error('Authentication failure: invalid email or password.');
+				err.user_presentable = true;
+
+				cb(err);
 			}
 		}
 	);
