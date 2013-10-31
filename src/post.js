@@ -4,14 +4,26 @@ var db = require('./database');
 module.exports = function (title, body, tags, author, cb) {
 	var posts = db.handle.collection('posts');
 
-	posts.insert({ title: title, body: body, tags: tags, author: author, on: moment().unix() }, { safe: true }, function (err) {
-		if (err) {
-			cb(err);
-			return;
-		}
+	posts.insert(
+		{
+			title: title,
+			body: body,
+			tags: tags,
+			author: author,
+			on: moment().unix()
+		},
 
-		cb(null);
-	});
+		{ safe: true },
+
+		function (err) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null);
+		}
+	);
 };
 
 module.exports.edit = function (post_id, title, body, tags, editor, cb) {
@@ -46,39 +58,56 @@ module.exports.edit = function (post_id, title, body, tags, editor, cb) {
 module.exports.delete = function (post_id, cb) {
 	var posts = db.handle.collection('posts');
 
-	posts.remove({ _id: new db.ObjectID(post_id) }, { safe: true }, function (err) {
-		if (err) {
-			cb(err);
-			return;
-		}
+	posts.remove(
+		{ _id: new db.ObjectID(post_id) },
 
-		cb(null);
-	});
+		{ safe: true },
+
+		function (err) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null);
+		}
+	);
 };
 
 module.exports.get = function (cb) {
 	var posts = db.handle.collection('posts');
 
-	posts.find({ $query: {}, $orderby: { on: -1 } }, function (err, posts) {
-		if (err) {
-			cb(err);
-			return;
-		}
+	posts.find(
+		{
+			$query: {},
+			$orderby: { on: -1 }
+		},
 
-		posts.toArray(cb);
-	});
+		function (err, posts) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			posts.toArray(cb);
+		}
+	);
 };
 
 module.exports.getById = function (post_id, cb) {
 	var posts = db.handle.collection('posts');
 
-	posts.findOne({ _id: new db.ObjectID(post_id) }, function (err, post) {
-		if (err) {
-			cb(err);
-			return;
-		}
+	posts.findOne(
+		{ _id: new db.ObjectID(post_id) },
 
-		cb(null, post);
-	});
+		function (err, post) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null, post);
+		}
+	);
 };
 

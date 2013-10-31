@@ -3,21 +3,25 @@ var db = require('./database');
 module.exports = function (email, password, cb) {
 	var users = db.handle.collection('users');
 
-	users.findOne({ email: email, password: password }, function (err, user) {
-		if (err) {
-			console.error('database error:', err);
-			cb(err);
+	users.findOne(
+		{ email: email, password: password },
 
-			return;
-		}
+		function (err, user) {
+			if (err) {
+				console.error('database error:', err);
+				cb(err);
 
-		if (user) {
-			cb(null, user);
+				return;
+			}
+
+			if (user) {
+				cb(null, user);
+			}
+			else {
+				cb(new Error('Invalid credentials.'));
+			}
 		}
-		else {
-			cb(new Error('Invalid credentials.'));
-		}
-	});
+	);
 };
 
 module.exports.create = function (email, password, name, cb) {
@@ -50,30 +54,38 @@ module.exports.create = function (email, password, name, cb) {
 
 	var users = db.handle.collection('users');
 
-	users.findOne({ email: email }, function (err, existing_user) {
-		if (err) {
-			cb(err);
-			return;
+	users.findOne(
+		{ email: email },
+
+		function (err, existing_user) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			if (existing_user) {
+				var err = new Error('A user with this email address already exists in the database.');
+				err.user_presentable = true;
+
+				cb(err);
+
+				return;
+			}
+			else {
+				users.insert(
+					{ name: name, email: email, password: password },
+
+					function (err) {
+						if (err) {
+							cb(err);
+							return;
+						}
+
+						cb(null);
+					}
+				);
+			}
 		}
-
-		if (existing_user) {
-			var err = new Error('A user with this email address already exists in the database.');
-			err.user_presentable = true;
-
-			cb(err);
-
-			return;
-		}
-		else {
-			users.insert({ name: name, email: email, password: password }, function (err) {
-				if (err) {
-					cb(err);
-					return;
-				}
-
-				cb(null);
-			});
-		}
-	});
+	);
 };
 
