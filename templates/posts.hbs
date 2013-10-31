@@ -7,7 +7,7 @@
 				</h1>
 				<div class="publishing-info">
 					Posted by
-					<a class="author" href="mailto:{{author.email}}">
+					<a href="mailto:{{author.email}}">
 						{{author.name}}
 					</a>
 					on
@@ -18,7 +18,7 @@
 				{{#last_editor}}
 				<div class="editing-info">
 					Last edited by
-					<a class="author" href="mailto:{{email}}">
+					<a href="mailto:{{email}}">
 						{{name}}
 					</a>
 					on
@@ -38,7 +38,7 @@
 					</div>
 				{{/if}}
 				<div class="actions">
-					<a class="edit" href="/edit/{{_id}}">
+					<a href="/edit/{{_id}}">
 						Edit or delete this post.
 					</a>
 				</div>
