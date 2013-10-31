@@ -1,20 +1,20 @@
 var post = require('../post');
 
-module.exports = function (app, bp_wrapper) {
-	app.get('/compose', bp_wrapper(function (req, res, bp) {
+module.exports = function (app) {
+	app.get('/compose', function (req, res) {
 		if (!req.session.user) {
-			bp.push_message('warning', 'You must be authenticated in order to post.');
+			res.push_message('warning', 'You must be authenticated in order to post.');
 			res.redirect('/');
 
 			return;
 		}
 
-		bp.send_page('compose');
-	}));
+		res.send_page('compose');
+	});
 
-	app.post('/compose', bp_wrapper(function (req, res, bp) {
+	app.post('/compose', function (req, res) {
 		if (!req.session.user) {
-			bp.push_message('warning', 'You must be authenticated in order to post.');
+			res.push_message('warning', 'You must be authenticated in order to post.');
 			res.redirect('/');
 
 			return;
@@ -31,18 +31,18 @@ module.exports = function (app, bp_wrapper) {
 			if (err) {
 				if (!err.user_presentable) {
 					res.status(500);
-					bp.push_message('warning', 'Internal server error.');
+					res.push_message('warning', 'Internal server error.');
 
-					bp.send_page('compose', {
+					res.send_page('compose', {
 						title: req.body.title,
 						body: req.body.body,
 						tags: req.body.tags
 					});
 				}
 				else {
-					bp.push_message('warning', err.message);
+					res.push_message('warning', err.message);
 
-					bp.send_page('compose', {
+					res.send_page('compose', {
 						title: req.body.title,
 						body: req.body.body,
 						tags: req.body.tags
@@ -52,15 +52,15 @@ module.exports = function (app, bp_wrapper) {
 				return;
 			}
 
-			bp.push_message('success', 'Post published successfuly!');
+			res.push_message('success', 'Post published successfuly!');
 
 			res.redirect('/');
 		});
-	}));
+	});
 
-	app.get('/edit/:post_id', bp_wrapper(function (req, res, bp) {
+	app.get('/edit/:post_id', function (req, res) {
 		if (!req.session.user) {
-			bp.push_message('warning', 'You must be authenticated in order to edit this post.');
+			res.push_message('warning', 'You must be authenticated in order to edit this post.');
 			res.redirect('/');
 
 			return;
@@ -70,29 +70,29 @@ module.exports = function (app, bp_wrapper) {
 			if (err) {
 				if (!err.user_presentable) {
 					res.status(500);
-					bp.push_message('warning', 'Internal server error.');
-					bp.send_page('compose', { editing: true });
+					res.push_message('warning', 'Internal server error.');
+					res.send_page('compose', { editing: true });
 				}
 				else {
-					bp.push_message('warning', err.message);
-					bp.send_page('compose', { editing: true });
+					res.push_message('warning', err.message);
+					res.send_page('compose', { editing: true });
 				}
 
 				return;
 			}
 
-			bp.send_page('compose', {
+			res.send_page('compose', {
 				editing: true,
 				title: post.title,
 				body: post.body,
 				tags: post.tags.join(', ')
 			});
 		});
-	}));
+	});
 
-	app.post('/edit/:post_id',  bp_wrapper(function (req, res, bp) {
+	app.post('/edit/:post_id',  function (req, res) {
 		if (!req.session.user) {
-			bp.push_message('warning', 'You must be authenticated in order to edit this post.');
+			res.push_message('warning', 'You must be authenticated in order to edit this post.');
 			res.redirect('/');
 
 			return;
@@ -102,18 +102,18 @@ module.exports = function (app, bp_wrapper) {
 			post.delete(req.params.post_id, function (err) {
 				if (err) {
 					if (!err.user_presentable) {
-						bp.push_message('warning', 'Internal server error.');
+						res.push_message('warning', 'Internal server error.');
 						res.redirect('/');
 					}
 					else {
-						bp.push_message('warning', err.message);
+						res.push_message('warning', err.message);
 						res.redirect('/');
 					}
 
 					return;
 				}
 
-				bp.push_message('success', 'Post deleted successfuly!');
+				res.push_message('success', 'Post deleted successfuly!');
 
 				res.redirect('/');
 			});
@@ -132,9 +132,9 @@ module.exports = function (app, bp_wrapper) {
 			if (err) {
 				if (!err.user_presentable) {
 					res.status(500);
-					bp.push_message('warning', 'Internal server error.');
+					res.push_message('warning', 'Internal server error.');
 
-					bp.send_page('compose', {
+					res.send_page('compose', {
 						editing: true,
 						title: req.body.title,
 						body: req.body.body,
@@ -142,9 +142,9 @@ module.exports = function (app, bp_wrapper) {
 					});
 				}
 				else {
-					bp.push_message('warning', err.message);
+					res.push_message('warning', err.message);
 
-					bp.send_page('compose', {
+					res.send_page('compose', {
 						editing: true,
 						title: req.body.title,
 						body: req.body.body,
@@ -155,9 +155,9 @@ module.exports = function (app, bp_wrapper) {
 				return;
 			}
 
-			bp.push_message('success', 'Post edited successfuly!');
+			res.push_message('success', 'Post edited successfuly!');
 
 			res.redirect('/');
 		});
-	}));
+	});
 };

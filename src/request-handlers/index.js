@@ -1,19 +1,19 @@
 var moment = require('moment');
 var post = require('../post');
 
-module.exports = function (app, bp_wrapper) {
-	app.get('/', bp_wrapper(function (req, res, bp) {
+module.exports = function (app) {
+	app.get('/', function (req, res) {
 		post.get(function (err, posts) {
 			if (err) {
 				res.status(500);
-				bp.push_message('warning', 'Internal server error.');
-				bp.send_page('posts');
+				res.push_message('warning', 'Internal server error.');
+				res.send_page('posts');
 
 				return;
 			}
 
-			bp.send_page('posts', { posts: posts });
+			res.send_page('posts', { posts: posts });
 		});
-	}));
+	});
 };
 

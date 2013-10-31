@@ -1,18 +1,7 @@
 var glob = require('glob');
 var templates = require('./templates');
 
-function boilerplate_wrapper (handler) {
-	return function (req, res) {
-		handler.call(this, req, res, {
-			req: req,
-			res: res,
-			push_message: boilerplate_functions.push_message,
-			send_page: boilerplate_functions.send_page
-		});
-	};
-}
-
-var boilerplate_functions = {
+var boilerplate = {
 	push_message: function (type, text) {
 		this.req.session.messages.push({ type: type, text: text });
 	},
@@ -36,13 +25,22 @@ var boilerplate_functions = {
 
 module.exports = {
 	register: function (app) {
+		app.use(function (req, res, next) {
+			var api = { req: req, res: res };
+
+			res.push_message = boilerplate.push_message.bind(api);
+			res.send_page = boilerplate.send_page.bind(api);
+
+			next();
+		});
+
 		glob(__dirname + '/request-handlers/*.js', function (err, files) {
 			if (err) {
 				throw err;
 			}
 
 			files.forEach(function (file) {
-				require(file)(app, boilerplate_wrapper);
+				require(file)(app);
 			});
 		});
 	}

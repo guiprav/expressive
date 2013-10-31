@@ -1,10 +1,10 @@
 var auth = require('../auth');
 
-module.exports = function (app, bp_wrapper) {
-	app.post('/login', bp_wrapper(function (req, res, bp) {
+module.exports = function (app) {
+	app.post('/login', function (req, res) {
 		auth(req.body.email, req.body.password, function (err, user_data) {
 			if (err) {
-				bp.push_message('warning', 'Invalid email or password. Please try again.');
+				res.push_message('warning', 'Invalid email or password. Please try again.');
 				res.redirect('/');
 
 				return;
@@ -14,24 +14,24 @@ module.exports = function (app, bp_wrapper) {
 
 			res.redirect('/');
 		});
-	}));
+	});
 
-	app.get('/logout', bp_wrapper(function (req, res, bp) {
+	app.get('/logout', function (req, res) {
 		req.session.user = null;
 
-		bp.push_message('info', 'You have been logged out.');
+		res.push_message('info', 'You have been logged out.');
 		res.redirect('/');
-	}));
+	});
 
-	app.get('/create-account', bp_wrapper(function (req, res, bp) {
-		bp.send_page('create_account');
-	}));
+	app.get('/create-account', function (req, res) {
+		res.send_page('create_account');
+	});
 
-	app.post('/create-account', bp_wrapper(function (req, res, bp) {
+	app.post('/create-account', function (req, res) {
 		if (req.body.password !== req.body['repeated-password']) {
-			bp.push_message('warning', "The passwords you've entered don't match. Try again.");
+			res.push_message('warning', "The passwords you've entered don't match. Try again.");
 
-			bp.send_page('create_account', {
+			res.send_page('create_account', {
 				name: req.body.name,
 				email: req.body.email
 			});
@@ -43,17 +43,17 @@ module.exports = function (app, bp_wrapper) {
 			if (err) {
 				if (!err.user_presentable) {
 					res.status(500);
-					bp.push_message('warning', 'Internal server error.');
+					res.push_message('warning', 'Internal server error.');
 
-					bp.send_page('create_account', {
+					res.send_page('create_account', {
 						name: req.body.name,
 						email: req.body.email
 					});
 				}
 				else {
-					bp.push_message('warning', err.message);
+					res.push_message('warning', err.message);
 
-					bp.send_page('create_account', {
+					res.send_page('create_account', {
 						name: req.body.name,
 						email: req.body.email
 					});
@@ -62,10 +62,10 @@ module.exports = function (app, bp_wrapper) {
 				return;
 			}
 
-			bp.push_message('success', 'Account created successfuly!');
+			res.push_message('success', 'Account created successfuly!');
 
 			res.redirect('/');
 		});
-	}));
+	});
 };
 
