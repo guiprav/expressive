@@ -5,15 +5,18 @@
 				<h1>
 					{{title}}
 				</h1>
-				Posted by
-				<a class="author" href="mailto:{{author.email}}">
-					{{author.name}}
-				</a>
-				on
-				<span class="date">
-					{{verbose-date on}}.
-				</span>
+				<div class="publishing-info">
+					Posted by
+					<a class="author" href="mailto:{{author.email}}">
+						{{author.name}}
+					</a>
+					on
+					<span class="date">
+						{{verbose-date on}}.
+					</span>
+				</div>
 				{{#last_editor}}
+				<div class="editing-info">
 					Last edited by
 					<a class="author" href="mailto:{{email}}">
 						{{name}}
@@ -22,6 +25,7 @@
 					<span class="date">
 						{{verbose-date ../last_edited_on}}.
 					</span>
+				</div>
 				{{/last_editor}}
 				{{#if tags}}
 					<div class="tags">
@@ -33,11 +37,15 @@
 						</ul>
 					</div>
 				{{/if}}
-				<a class="edit" href="/edit/{{_id}}">
-					Edit or delete this post.
-				</a>
+				<div class="actions">
+					<a class="edit" href="/edit/{{_id}}">
+						Edit or delete this post.
+					</a>
+				</div>
 			</header>
-			{{markdown body}}
+			<div class="blogpost-body">
+				{{markdown body}}
+			</div>
 		</article>
 	{{/posts}}
 	{{^posts}}
