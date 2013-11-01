@@ -114,15 +114,17 @@ module.exports.getById = function (post_id, cb) {
 module.exports.search = function (title, tags, cb) {
 	var posts = db.handle.collection('posts');
 
+	function regexify (string) {
+		return new RegExp(string, 'gi');
+	}
+
 	var title_terms = title.split(/[ -]/).filter(
 		function (term) {
 			return term !== '';
 		}
-	).map(
-		function (term) {
-			return new RegExp(term, 'gi');
-		}
-	);
+	).map(regexify);
+
+	tags = tags.map(regexify);
 
 	var query = {};
 
