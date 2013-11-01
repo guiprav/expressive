@@ -26,6 +26,27 @@ module.exports = function (title, body, tags, author, cb) {
 	);
 };
 
+module.exports.comment = function (post_id, author, body, cb) {
+	var posts = db.handle.collection('posts');
+
+	posts.update(
+		{ _id: new db.ObjectID(post_id) },
+
+		{ $push: { comments: { author: author, body: body } } },
+
+		{ safe: true },
+
+		function (err) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null);
+		}
+	);
+};
+
 module.exports.edit = function (post_id, title, body, tags, editor, cb) {
 	var posts = db.handle.collection('posts');
 
