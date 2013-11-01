@@ -26,13 +26,13 @@ module.exports = function (app) {
 			return;
 		}
 
-		var tags = req.body.tags.split(',').map(function (tag) {
+		req.body.tags = req.body.tags.split(',').map(function (tag) {
 			return tag.trim();
 		}).filter(function (tag) {
 			return tag !== '';
 		});
 
-		post(req.body.title, req.body.body, tags, req.session.user, function (err) {
+		post(req.body.title, req.body.body, req.body.tags, req.session.user, function (err) {
 			if (err) {
 				res.push_error_object(err);
 				res.send_page('compose', template_data);
@@ -101,13 +101,13 @@ module.exports = function (app) {
 			return;
 		}
 
-		var tags = req.body.tags.split(',').map(function (tag) {
+		req.body.tags = req.body.tags.split(',').map(function (tag) {
 			return tag.trim();
 		}).filter(function (tag) {
 			return tag !== '';
 		});
 
-		post.edit(req.params.post_id, req.body.title, req.body.body, tags, req.session.user, function (err) {
+		post.edit(req.params.post_id, req.body.title, req.body.body, req.body.tags, req.session.user, function (err) {
 			if (err) {
 				res.push_error_object(err);
 				res.send_page('compose', template_data);

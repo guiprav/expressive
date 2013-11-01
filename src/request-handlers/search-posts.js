@@ -36,15 +36,15 @@ module.exports = function (app) {
 			tags: req.body.tags
 		};
 
-		var title = req.body.title.trim();
+		req.body.title = req.body.title.trim();
 
-		var tags = req.body.tags.split(',').map(function (tag) {
+		req.body.tags = req.body.tags.split(',').map(function (tag) {
 			return tag.trim();
 		}).filter(function (tag) {
 			return tag !== '';
 		});
 
-		post.search(title, tags, function (err, posts) {
+		post.search(req.body.title, req.body.tags, function (err, posts) {
 			if (err) {
 				res.push_error_object(err);
 				res.send_page('search', template_data);
