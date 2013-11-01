@@ -4,7 +4,7 @@ var post = require('../post');
 module.exports = function (app) {
 	app.get('/', function (req, res) {
 		var template_data = {
-			logged_in: !!req.session.user
+			user: req.session.user
 		};
 
 		post.get(function (err, posts) {
