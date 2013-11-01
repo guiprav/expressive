@@ -1,5 +1,5 @@
 <div class="post-search-container">
-	<form class="post-search-form" method="post">
+	<form class="post-search-form" method="post" action="/post/search">
 		<input class="form-control" name="title" value="{{title}}" placeholder="Title search terms.">
 		<input class="form-control" name="tags" value="{{tags}}" placeholder="Comma-separated search tags.">
 		<input class="btn btn-default" type="submit" value="Search">
@@ -41,7 +41,7 @@
 				{{/if}}
 				{{#if tags}}
 					<div class="tags">
-						Tags: {{comma-separated tags}}.
+						Tags: {{#comma-separated tags}}<a href="/post/by-tag/{{this}}">{{this}}</a>{{/comma-separated}}.
 					</div>
 				{{/if}}
 				{{#if ../user}}

@@ -43,7 +43,7 @@
 				{{/if}}
 				{{#if tags}}
 					<div class="tags">
-						Tags: {{comma-separated tags}}.
+						Tags: {{#comma-separated tags}}<a href="/post/by-tag/{{this}}">{{this}}</a>{{/comma-separated}}.
 					</div>
 				{{/if}}
 				{{#if ../user}}

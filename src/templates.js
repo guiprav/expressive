@@ -14,8 +14,8 @@ hbs.registerHelper('markdown', function (text) {
 	}));
 });
 
-hbs.registerHelper('comma-separated', function (array) {
-	return array.join(', ');
+hbs.registerHelper('comma-separated', function (array, options) {
+	return array.map(options.fn).join(', ');
 });
 
 hbs.registerHelper('verbose-date', function (timestamp) {
