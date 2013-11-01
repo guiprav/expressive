@@ -1,0 +1,61 @@
+<div class="post-search-container">
+	<form class="post-search-form" method="post">
+		<input class="form-control" name="title" value="{{title}}" placeholder="Title search terms.">
+		<input class="form-control" name="tags" value="{{tags}}" placeholder="Comma-separated search tags.">
+		<input class="btn btn-default" type="submit" value="Search">
+	</form>
+	{{#if posts}}
+		<div class="found-post-count">
+			<div class="padder">
+				Found {{posts.length}} posts matching the above criteria:
+			</div>
+		</div>
+	{{/if}}
+	{{#posts}}
+		<article class="blogpost">
+			<header class="blogpost-header">
+				<h1>
+					{{title}}
+				</h1>
+				<div class="publishing-info">
+					Posted by
+					<a href="mailto:{{author.email}}">
+						{{author.name}}
+					</a>
+					on
+					<span class="date">
+						{{verbose-date on}}.
+					</span>
+				</div>
+				{{#if last_editor}}
+				<div class="editing-info">
+					Last edited by
+					<a href="mailto:{{last_editor.email}}">
+						{{last_editor.name}}
+					</a>
+					on
+					<span class="date">
+						{{verbose-date last_edited_on}}.
+					</span>
+				</div>
+				{{/if}}
+				{{#if tags}}
+					<div class="tags">
+						Tags: {{comma-separated tags}}.
+					</div>
+				{{/if}}
+				{{#if ../logged_in}}
+					<div class="actions">
+						<a href="/article/edit/{{_id}}">
+							Edit or delete this post.
+						</a>
+					</div>
+				{{/if}}
+			</header>
+			<div class="blogpost-body">
+				{{markdown body}}
+			</div>
+		</article>
+	{{/posts}}
+</div>
+
