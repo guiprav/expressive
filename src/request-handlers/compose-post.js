@@ -26,12 +26,11 @@ module.exports = function (app) {
 			return;
 		}
 
-		var tags = req.body.tags.replace(/, +/g, ',');
-		tags = tags.split(',');
-
-		if (tags.length === 1 && tags[0] === '') {
-			tags = [];
-		}
+		var tags = req.body.tags.split(',').map(function (tag) {
+			return tag.trim();
+		}).filter(function (tag) {
+			return tag !== '';
+		});
 
 		post(req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {
@@ -102,12 +101,11 @@ module.exports = function (app) {
 			return;
 		}
 
-		var tags = req.body.tags.replace(/, +/g, ',');
-		tags = tags.split(',');
-
-		if (tags.length === 1 && tags[0] === '') {
-			tags = [];
-		}
+		var tags = req.body.tags.split(',').map(function (tag) {
+			return tag.trim();
+		}).filter(function (tag) {
+			return tag !== '';
+		});
 
 		post.edit(req.params.post_id, req.body.title, req.body.body, tags, req.session.user, function (err) {
 			if (err) {

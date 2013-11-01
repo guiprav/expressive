@@ -38,12 +38,11 @@ module.exports = function (app) {
 
 		var title = req.body.title.trim();
 
-		var tags = req.body.tags.replace(/, +/g, ',');
-		tags = tags.split(',');
-
-		if (tags.length === 1 && tags[0] === '') {
-			tags = [];
-		}
+		var tags = req.body.tags.split(',').map(function (tag) {
+			return tag.trim();
+		}).filter(function (tag) {
+			return tag !== '';
+		});
 
 		post.search(title, tags, function (err, posts) {
 			if (err) {
