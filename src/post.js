@@ -136,13 +136,20 @@ module.exports.search = function (title, tags, cb) {
 		query.tags = { $all: tags };
 	}
 
-	posts.find(query, function (err, posts) {
-		if (err) {
-			cb(err);
-			return;
-		}
+	posts.find(
+		{
+			$query: query,
+			$orderby: { on: -1 }
+		},
 
-		posts.toArray(cb);
-	});
+		function (err, posts) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			posts.toArray(cb);
+		}
+	);
 };
 
