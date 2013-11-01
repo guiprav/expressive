@@ -45,7 +45,9 @@ html, body {
 
 .alert,
 .blogpost,
-.compose-form {
+.compose-form,
+.posts-container > .search-message > .padder,
+.post-search-container > .found-post-count > .padder {
 	width: 1024px;
 	margin-left: auto;
 	margin-right: auto;
@@ -60,7 +62,8 @@ html, body {
 	padding-left: 10px;
 }
 
-.create-account-form {
+.create-account-form,
+.post-search-form {
 	width: 400px;
 	margin: 0 auto;
 
@@ -69,6 +72,18 @@ html, body {
 		width: 100%;
 		margin-bottom: 10px;
 	}
+}
+
+.post-search-container > .blogpost {
+	padding-left: 20px;
+}
+
+.posts-container > .search-message,
+.post-search-container > .found-post-count {
+	margin-top: 16px;
+	padding: 20px 0;
+	font-size: 16px;
+	background-color: #FAFAFA;
 }
 
 .compose-form {
