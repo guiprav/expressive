@@ -36,8 +36,6 @@ module.exports = function (app) {
 			tags: req.body.tags
 		};
 
-		req.body.title = req.body.title.trim();
-
 		req.body.tags = req.body.tags.split(',').map(function (tag) {
 			return tag.trim();
 		}).filter(function (tag) {
