@@ -1,11 +1,11 @@
 var post = require('../post');
 
 module.exports = function (app) {
-	app.get('/article/search', function (req, res) {
+	app.get('/post/search', function (req, res) {
 		res.send_page('search');
 	});
 
-	app.post('/article/search', function (req, res) {
+	app.post('/post/search', function (req, res) {
 		var template_data = {
 			title: req.body.title,
 			tags: req.body.tags

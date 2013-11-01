@@ -1,7 +1,7 @@
 var post = require('../post');
 
 module.exports = function (app) {
-	app.get('/article/compose', function (req, res) {
+	app.get('/post/compose', function (req, res) {
 		if (!req.session.user) {
 			res.push_message('danger', 'You must be authenticated in order to post.');
 			res.redirect('/');
@@ -12,7 +12,7 @@ module.exports = function (app) {
 		res.send_page('compose');
 	});
 
-	app.post('/article/compose', function (req, res) {
+	app.post('/post/compose', function (req, res) {
 		var template_data = {
 			title: req.body.title,
 			body: req.body.body,
@@ -46,7 +46,7 @@ module.exports = function (app) {
 		});
 	});
 
-	app.get('/article/edit/:post_id', function (req, res) {
+	app.get('/post/edit/:post_id', function (req, res) {
 		if (!req.session.user) {
 			res.push_message('danger', 'You must be authenticated in order to edit this post.');
 			res.redirect('/');
@@ -71,7 +71,7 @@ module.exports = function (app) {
 		});
 	});
 
-	app.post('/article/edit/:post_id',  function (req, res) {
+	app.post('/post/edit/:post_id',  function (req, res) {
 		var template_data = {
 			editing: true,
 			title: req.body.title,
