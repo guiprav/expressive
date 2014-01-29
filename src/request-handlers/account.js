@@ -24,6 +24,10 @@ module.exports = function (app) {
 	});
 
 	app.get('/account/create', function (req, res) {
+		res.push_message('danger', "Sorry, but account creation has been disabled.");
+		res.send_page('create_account');
+		return;
+
 		res.send_page('create_account');
 	});
 
@@ -32,6 +36,10 @@ module.exports = function (app) {
 			name: req.body.name,
 			email: req.body.email
 		};
+
+		res.push_message('danger', "Sorry, but account creation has been disabled.");
+		res.send_page('create_account', template_data);
+		return;
 
 		if (req.body.password !== req.body['repeated-password']) {
 			res.push_message('danger', "The passwords you've entered don't match. Try again.");
