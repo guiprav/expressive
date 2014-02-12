@@ -10,7 +10,12 @@ module.exports = function (app) {
 				return;
 			}
 
-			req.session.user = user_data;
+			req.session.user =
+			{
+				_id: user_data._id,
+				name: user_data.name,
+				email: user_data.email
+			};
 
 			res.redirect('/');
 		});
