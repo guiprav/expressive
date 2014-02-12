@@ -9,7 +9,12 @@ var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
-app.use(express.cookieSession({ secret: 'ijhcijwrvivelbtektjqpb' }));
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.cookieSession({ secret: process.env.COOKIE_SECRET }));
+}
+else {
+	app.use(express.cookieSession());
+}
 app.use(express['static'](__dirname + '/../public'));
 
 app.use(function (req, res, next) {
