@@ -1,13 +1,13 @@
 {
-	"name": "tagon-expressive",
+	"name": "expressive",
 
 	"version": "0.0.0",
 
-	"homepage": "https://github.com/n2liquid/tagon-expressive",
+	"homepage": "https://github.com/n2liquid/expressive",
 
 	"author": "Guilherme Vieira <super.driver.512@gmail.com>",
 
-	"description": "Tagon8 challenged me to write this blog software :)",
+	"description": "Blog software for an old job interview :)",
 
 	"bin":
 	{
