@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 	app.use(express.cookieSession({ secret: process.env.COOKIE_SECRET }));
 }
 else {
-	app.use(express.cookieSession());
+	app.use(express.cookieSession({ secret: 'not so secret' }));
 }
 app.use(express['static'](__dirname + '/../public'));
 
