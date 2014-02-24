@@ -36,6 +36,8 @@ db.connect(function (err) {
 		throw err;
 	}
 
-	http.createServer(app).listen(process.env.PORT || 3000);
+	var port = process.env.PORT || 3000;
+	http.createServer(app).listen(port);
+	console.log("Listening on port " + port + ".");
 });
 
