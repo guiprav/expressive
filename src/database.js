@@ -1,7 +1,7 @@
 var mongo_lib = require('mongodb');
 var mongo_client = mongo_lib.MongoClient;
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.MONGO_URI) {
 	var mongo_uri = process.env.MONGO_URI;
 }
 else {
