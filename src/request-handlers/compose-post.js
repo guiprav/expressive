@@ -116,7 +116,7 @@ module.exports = function (app) {
 			}
 
 			res.push_message('success', 'Post edited successfuly!');
-			res.redirect('/');
+			res.redirect('/post/' + req.params.post_id);
 		});
 	});
 };
