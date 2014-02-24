@@ -4,6 +4,7 @@ var glob = require('glob');
 var hbs = require('handlebars');
 var marked = require('marked');
 var moment = require('moment');
+var remove_diacritics = require('diacritics').remove;
 
 hbs.registerHelper('markdown', function (text) {
 	return new hbs.SafeString(marked(text, {
@@ -20,6 +21,15 @@ hbs.registerHelper('comma-separated', function (array, options) {
 
 hbs.registerHelper('verbose-date', function (timestamp) {
 	return moment.unix(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a");
+});
+
+hbs.registerHelper('make-slug', function (text) {
+	return remove_diacritics(text)
+			.replace(/'/g, '')
+			.toLowerCase()
+			.replace(/[^a-z0-9+]/g, '-')
+			.replace(/^-+/, '')
+			.replace(/-+$/, '');
 });
 
 glob(__dirname + '/../templates/*.hbs', function (err, files) {
