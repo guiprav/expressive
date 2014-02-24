@@ -59,4 +59,38 @@ module.exports = function (app) {
 			res.send_page('search', template_data);
 		});
 	});
+
+	app.get('/post/:id', post_by_id);
+	app.get('/post/:id/:slug', post_by_id);
+
+	function post_by_id (req, res) {
+		var template_data = {
+			user: req.session.user
+		};
+
+		post.getById(req.params.id, function (err, post) {
+			if (err) {
+				res.push_error_object(err);
+				res.send_page('post', template_data);
+
+				return;
+			}
+
+			if (!post) {
+				res.status(404);
+				res.push_message(
+					'warning',
+					'Sorry, but the post you are looking for ' +
+					'could not be found. The URL may be wrong, ' +
+					'or the post may have been deleted.'
+				);
+
+				return;
+			}
+
+			template_data.post = post;
+
+			res.send_page('post', template_data);
+		});
+	}
 };

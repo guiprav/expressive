@@ -1,25 +1,21 @@
 <div class="posts-container">
-	{{#if posts}}
-		<div class="search-message">
-			<div class="padder">
-				Looking for something?
-				<a href="/post/search">
-					Try searching.
-				</a>
-			</div>
+	<div class="search-message">
+		<div class="padder">
+			Looking for something?
+			<a href="/post/search">
+				Try searching
+			</a>
+			or
+			<a href="/">
+				browsing all posts.
+			</a>
 		</div>
-	{{else}}
-		<div class="alert alert-info">
-			There are no posts at this time.
-		</div>
-	{{/if}}
-	{{#posts}}
+	</div>
+	{{#post}}
 		<article class="blogpost">
 			<header class="blogpost-header">
 				<h1>
-					<a href="/post/{{_id}}/{{make-slug title}}">
-						{{title}}
-					</a>
+					{{title}}
 				</h1>
 				<div class="publishing-info">
 					Posted by
@@ -89,6 +85,5 @@
 				{{/comments}}
 			</div>
 		</article>
-	{{/posts}}
+	{{/post}}
 </div>
-
