@@ -21,6 +21,7 @@ module.exports = {
 			}
 
 			module.exports.handle = db;
+			console.log("Database connected.");
 
 			cb(null);
 		});
