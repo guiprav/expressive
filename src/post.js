@@ -95,12 +95,19 @@ module.exports.delete = function (post_id, cb) {
 	);
 };
 
-module.exports.get = function (cb) {
+module.exports.get = function (include_unlisted, cb) {
 	var posts = db.handle.collection('posts');
+	var query = {};
+
+	if (!include_unlisted)
+	{
+		query.tags = query.tags || {};
+		query.tags.$ne = 'unlisted';
+	}
 
 	posts.find(
 		{
-			$query: {},
+			$query: query,
 			$orderby: { on: -1 }
 		},
 
@@ -132,7 +139,7 @@ module.exports.getById = function (post_id, cb) {
 	);
 };
 
-module.exports.search = function (title, tags, cb) {
+module.exports.search = function (title, tags, include_unlisted, cb) {
 	var posts = db.handle.collection('posts');
 
 	function regexify (string) {
@@ -155,6 +162,12 @@ module.exports.search = function (title, tags, cb) {
 
 	if (tags.length !== 0) {
 		query.tags = { $all: tags };
+	}
+
+	if (!include_unlisted)
+	{
+		query.tags = query.tags || {};
+		query.tags.$ne = 'unlisted';
 	}
 
 	posts.find(

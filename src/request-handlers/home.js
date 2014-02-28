@@ -7,7 +7,9 @@ module.exports = function (app) {
 			user: req.session.user
 		};
 
-		post.get(function (err, posts) {
+		var include_unlisted = !!req.session.user;
+
+		post.get(include_unlisted, function (err, posts) {
 			if (err) {
 				res.push_error_object(err);
 				res.send_page('posts', template_data);

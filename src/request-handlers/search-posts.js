@@ -11,7 +11,9 @@ module.exports = function (app) {
 			tags: req.params.tag
 		};
 
-		post.search('', [ req.params.tag ], function (err, posts) {
+		var include_unlisted = !!req.session.user;
+
+		post.search('', [ req.params.tag ], include_unlisted, function (err, posts) {
 			if (err) {
 				res.push_error_object(err);
 				res.send_page('search', template_data);
@@ -42,22 +44,30 @@ module.exports = function (app) {
 			return tag !== '';
 		});
 
-		post.search(req.body.title, req.body.tags, function (err, posts) {
-			if (err) {
-				res.push_error_object(err);
+		var include_unlisted = !!req.session.user;
+
+		post.search(
+			req.body.title,
+			req.body.tags,
+			include_unlisted,
+
+			function (err, posts) {
+				if (err) {
+					res.push_error_object(err);
+					res.send_page('search', template_data);
+
+					return;
+				}
+
+				if (posts.length === 0) {
+					res.push_message('warning', 'No posts matching your criteria have been found. Try simplifying them.');
+				}
+
+				template_data.posts = posts;
+
 				res.send_page('search', template_data);
-
-				return;
 			}
-
-			if (posts.length === 0) {
-				res.push_message('warning', 'No posts matching your criteria have been found. Try simplifying them.');
-			}
-
-			template_data.posts = posts;
-
-			res.send_page('search', template_data);
-		});
+		);
 	});
 
 	app.get('/post/:id', post_by_id);
