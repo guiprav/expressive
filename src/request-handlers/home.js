@@ -1,4 +1,3 @@
-var moment = require('moment');
 var post = require('../post');
 
 module.exports = function (app) {
