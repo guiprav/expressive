@@ -105,20 +105,50 @@ module.exports.get = function (include_unlisted, cb) {
 		query.tags.$ne = 'unlisted';
 	}
 
-	posts.find(
-		{
-			$query: query,
-			$orderby: { on: -1 }
-		},
-
-		function (err, posts) {
-			if (err) {
-				cb(err);
-				return;
+	posts.aggregate(
+		[
+			{
+				$match: query
+			},
+			{
+				$unwind: '$tags'
+			},
+			{
+				$project:
+				{
+					title: 1,
+					author: 1,
+					body: 1,
+					last_edited_on: 1,
+					last_editor: 1,
+					on: 1,
+					tags: 1,
+					is_pinned: { $eq: ['$tags', 'pinned'] }
+				}
+			},
+			{
+				$group:
+				{
+					_id: '$_id',
+					title: { $first: '$title' },
+					author: { $first: '$author' },
+					body: { $first: '$body' },
+					last_edited_on: { $first: '$last_edited_on' },
+					last_editor: { $first: '$last_editor' },
+					on: { $first: '$on' },
+					tags: { $push: '$tags' },
+					is_pinned: { $max: '$is_pinned' }
+				}
+			},
+			{
+				$sort:
+				{
+					is_pinned: -1,
+					on: -1
+				}
 			}
-
-			posts.toArray(cb);
-		}
+		],
+		cb
 	);
 };
 
