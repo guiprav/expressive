@@ -12,52 +12,7 @@
 		</div>
 	{{/if}}
 	{{#posts}}
-		<article class="blogpost">
-			<header class="blogpost-header">
-				<h1>
-					<a href="/post/{{_id}}/{{make-slug title}}">
-						{{title}}
-					</a>
-				</h1>
-				<div class="publishing-info">
-					Posted by
-					<a href="mailto:{{author.email}}">
-						{{author.name}}
-					</a>
-					on
-					<span class="date">
-						{{verbose-date on}}.
-					</span>
-				</div>
-				{{#if last_editor}}
-				<div class="editing-info">
-					Last edited by
-					<a href="mailto:{{last_editor.email}}">
-						{{last_editor.name}}
-					</a>
-					on
-					<span class="date">
-						{{verbose-date last_edited_on}}.
-					</span>
-				</div>
-				{{/if}}
-				{{#if tags}}
-					<div class="tags">
-						Tags: {{#comma-separated tags}}<a href="/post/by-tag/{{this}}">{{this}}</a>{{/comma-separated}}.
-					</div>
-				{{/if}}
-				{{#if ../user}}
-					<div class="actions">
-						<a href="/post/edit/{{_id}}">
-							Edit or delete this post.
-						</a>
-					</div>
-				{{/if}}
-			</header>
-			<div class="blogpost-body">
-				{{markdown body}}
-			</div>
-		</article>
+		{{> post root=..}}
 	{{/posts}}
 </div>
 
