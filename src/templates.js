@@ -38,10 +38,17 @@ glob(__dirname + '/../templates/*.hbs', function (err, files) {
 	}
 
 	files.forEach(function (file) {
-		var template_name = path.basename(file, '.hbs');
 		var template_src = fs.readFileSync(file, 'utf8');
-
-		module.exports[template_name] = hbs.compile(template_src);
+		var template_name = path.basename(file, '.hbs');
+		if (path.extname(template_name) === '.partial')
+		{
+			var partial_name = path.basename(template_name, '.partial');
+			hbs.registerPartial(partial_name, template_src);
+		}
+		else
+		{
+			module.exports[template_name] = hbs.compile(template_src);
+		}
 	});
 });
 
