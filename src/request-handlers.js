@@ -21,10 +21,10 @@ var boilerplate = {
 			body_template_parameters = {};
 		}
 
-		var page = templates.page({
+		var page = templates.shell({
 			user: this.req.session.user,
 			messages: this.req.session.messages,
-			body: templates[body_template_name](body_template_parameters)
+			page_html: templates[body_template_name](body_template_parameters)
 		});
 
 		this.req.session.messages = [];
