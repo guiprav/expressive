@@ -2,35 +2,22 @@ var fs = require('fs');
 var path = require('path');
 var glob = require('glob');
 var hbs = require('handlebars');
-var marked = require('marked');
-var moment = require('moment');
-var remove_diacritics = require('diacritics').remove;
 
-hbs.registerHelper('markdown', function (text) {
-	return new hbs.SafeString(marked(text, {
-		gfm: true,
-		sanitize: true,
-		breaks: true,
-		tables: true
-	}));
-});
+glob (
+	__dirname + '/../templates/*.helper.js', function(err, files) {
+		if(err) {
+			throw err;
+		}
 
-hbs.registerHelper('comma-separated', function (array, options) {
-	return array.map(options.fn).join(', ');
-});
-
-hbs.registerHelper('verbose-date', function (timestamp) {
-	return moment.unix(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a");
-});
-
-hbs.registerHelper('make-slug', function (text) {
-	return remove_diacritics(text)
-			.replace(/'/g, '')
-			.toLowerCase()
-			.replace(/[^a-z0-9+]/g, '-')
-			.replace(/^-+/, '')
-			.replace(/-+$/, '');
-});
+		files.forEach (
+			function(file) {
+				var helper = require(file).bind(null, hbs);
+				var name = path.basename(file, '.helper.js');
+				hbs.registerHelper(name, helper);
+			}
+		);
+	}
+);
 
 glob(__dirname + '/../templates/*.hbs', function (err, files) {
 	if (err) {
@@ -51,4 +38,3 @@ glob(__dirname + '/../templates/*.hbs', function (err, files) {
 		}
 	});
 });
-
