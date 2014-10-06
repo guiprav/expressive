@@ -46,33 +46,39 @@
 	<div class="blogpost-body">
 		{{markdown body}}
 	</div>
-	<div class="blogpost-comments">
-		<form class="blogpost-comment-form" method="post" action="/post/comment">
-			<input type="hidden" name="post_id" value="{{_id}}">
-			{{#unless root.user}}
-				<input class="form-control" type="text" name="name" placeholder="Your name.">
-			{{/unless}}
-			<textarea class="form-control" name="body" placeholder="Your comment."></textarea>
-			<input class="btn btn-default" type="submit" value="Publish">
-			<input class="btn btn-default" type="reset" value="Cancel" onclick="$(this).parents('.blogpost-comments').removeClass('commenting')">
-		</form>
+	{{#if root.comments-disabled}}
 		<div class="comment-count">
-			{{#if comments}}
-				This post has {{comments.length}} comments.
-			{{else}}
-				This post has no comments.
-			{{/if}}
-			<a href="#!" onclick="$(this).parents('.blogpost-comments').addClass('commenting')">
-				Leave yours.
-			</a>
+			Comments have been disabled.
 		</div>
-		{{#comments}}
-			<div class="blogpost-comment">
-				<div class="author">
-					{{author}} says:
-				</div>
-				{{markdown body}}
+	{{else}}
+		<div class="blogpost-comments">
+			<form class="blogpost-comment-form" method="post" action="/post/comment">
+				<input type="hidden" name="post_id" value="{{_id}}">
+				{{#unless root.user}}
+					<input class="form-control" type="text" name="name" placeholder="Your name.">
+				{{/unless}}
+				<textarea class="form-control" name="body" placeholder="Your comment."></textarea>
+				<input class="btn btn-default" type="submit" value="Publish">
+				<input class="btn btn-default" type="reset" value="Cancel" onclick="$(this).parents('.blogpost-comments').removeClass('commenting')">
+			</form>
+			<div class="comment-count">
+				{{#if comments}}
+					This post has {{comments.length}} comments.
+				{{else}}
+					This post has no comments.
+				{{/if}}
+				<a href="#!" onclick="$(this).parents('.blogpost-comments').addClass('commenting')">
+					Leave yours.
+				</a>
 			</div>
-		{{/comments}}
-	</div>
+			{{#comments}}
+				<div class="blogpost-comment">
+					<div class="author">
+						{{author}} says:
+					</div>
+					{{markdown body}}
+				</div>
+			{{/comments}}
+		</div>
+	{{/if}}
 </article>

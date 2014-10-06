@@ -21,6 +21,8 @@ var boilerplate = {
 			body_template_parameters = {};
 		}
 
+		body_template_parameters['comments-disabled'] = (process.env.DISABLE_COMMENTS !== undefined);
+
 		var page = templates.shell({
 			user: this.req.session.user,
 			messages: this.req.session.messages,

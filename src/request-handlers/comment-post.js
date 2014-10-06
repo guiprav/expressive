@@ -6,6 +6,13 @@ module.exports = function (app) {
 			req.body.name = req.session.user.name;
 		}
 
+		if(process.env.DISABLE_COMMENTS) {
+			res.push_message('error', 'Sorry, but comments are currently disabled, boo! :(');
+			res.redirect('/');
+
+			return;
+		}
+
 		post.comment(req.body.post_id, req.body.name, req.body.body, function (err) {
 			if (err) {
 				res.push_error_object(err);
