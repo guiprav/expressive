@@ -1,0 +1,7 @@
+#!/bin/bash
+URI=$(heroku config:get MONGO_URI --app expressive-blog)
+read -a DATA <<<$(echo "$URI" |vimsed "d2f/f:rf@r")
+USERNAME=${DATA[0]}
+PASSWORD=${DATA[1]}
+ADDRESS=${DATA[2]}
+mongo -u "$USERNAME" -p "$PASSWORD" "$ADDRESS"
