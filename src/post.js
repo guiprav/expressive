@@ -123,7 +123,8 @@ module.exports.get = function (include_unlisted, cb) {
 					last_editor: 1,
 					on: 1,
 					tags: 1,
-					is_pinned: { $eq: ['$tags', 'pinned'] }
+					is_pinned: { $eq: ['$tags', 'pinned'] },
+					comments: 1
 				}
 			},
 			{
@@ -137,7 +138,8 @@ module.exports.get = function (include_unlisted, cb) {
 					last_editor: { $first: '$last_editor' },
 					on: { $first: '$on' },
 					tags: { $push: '$tags' },
-					is_pinned: { $max: '$is_pinned' }
+					is_pinned: { $max: '$is_pinned' },
+					comments: { $first: '$comments' }
 				}
 			},
 			{
