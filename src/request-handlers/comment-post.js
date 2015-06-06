@@ -13,6 +13,13 @@ module.exports = function (app) {
 			return;
 		}
 
+		if(req.body['damn-robots'].trim().toLowerCase() !== 'yellow') {
+			res.push_message('danger', "Sorry, but that's not this blog's header color...");
+			res.redirect('/');
+
+			return;
+		}
+
 		post.comment(req.body.post_id, req.body.name, req.body.body, function (err) {
 			if (err) {
 				res.push_error_object(err);

@@ -58,7 +58,8 @@
 					<input class="form-control" type="text" name="name" placeholder="Your name.">
 				{{/unless}}
 				<textarea class="form-control" name="body" placeholder="Your comment."></textarea>
-				<input class="btn btn-default" type="submit" value="Publish">
+				<input class="form-control" type="text" name="damn-robots" placeholder="Prove you're not a damn robot: What's the color of this blog's header?">
+				<input class="btn btn-default" type="submit" value="Publish" disabled>
 				<input class="btn btn-default" type="reset" value="Cancel" onclick="$(this).parents('.blogpost-comments').removeClass('commenting')">
 			</form>
 			<div class="comment-count">

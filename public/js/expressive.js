@@ -15,3 +15,9 @@ $('body').on('click', 'input[type="submit"][confirmation]', function (event) {
 		event.preventDefault();
 	}
 });
+$('body').on('keyup', '[name="damn-robots"]', function(event) {
+	var $this = $(this);
+	$this.closest('form').find('input[type="submit"]').prop (
+		'disabled', (btoa($this.val().trim().toLowerCase()) !== 'eWVsbG93')
+	);
+});
