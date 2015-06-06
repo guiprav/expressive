@@ -7,7 +7,7 @@ module.exports = function (app) {
 		}
 
 		if(process.env.DISABLE_COMMENTS) {
-			res.push_message('error', 'Sorry, but comments are currently disabled, boo! :(');
+			res.push_message('danger', 'Sorry, but comments are currently disabled, boo! :(');
 			res.redirect('/');
 
 			return;
