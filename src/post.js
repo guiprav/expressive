@@ -1,3 +1,4 @@
+var escapeForRegex = require('escape-string-regexp');
 var moment = require('moment');
 var db = require('./database');
 
@@ -175,7 +176,7 @@ module.exports.search = function (title, tags, include_unlisted, cb) {
 	var posts = db.handle.collection('posts');
 
 	function regexify (string) {
-		return new RegExp(string, 'gi');
+		return new RegExp(escapeForRegex(string), 'gi');
 	}
 
 	var title_terms = title.split(/[ -]/).filter(
