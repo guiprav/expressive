@@ -35,6 +35,12 @@
 				{{/comma-separated}}.
 			</div>
 		{{/if}}
+		{{#unless title}}
+			<div class="permalink">
+				Permalink:
+				<a href="/post/{{_id}}">{{_id}}</a>.
+			</div>
+		{{/unless}}
 		{{#if root.user}}
 			<div class="actions">
 				<a href="/post/edit/{{_id}}">
