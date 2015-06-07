@@ -44,7 +44,7 @@
 		{{/if}}
 	</header>
 	<div class="blogpost-body">
-		{{markdown body}}
+		{{markdown body sanitize=false}}
 	</div>
 	{{#if root.comments-disabled}}
 		<div class="comment-count">
